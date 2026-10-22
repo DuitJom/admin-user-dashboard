@@ -1,3 +1,9 @@
-# Merchant Portal
+# Salesforce Data CRM Managed
 
-Portal for merchants/creditors where Admins and Pengguna (users) sign in. Step 1 looks up the merchant by Merchant ID and passkey and shows the merchant's record (GETMORE RESOURCES SDN BHD / DUITJOM). Step 2 verifies the client with phone, PIN, email and OTP. After that the user lands on a dashboard with a top bar (logo, language picker, logout) and a slide-out sidebar menu.
+# Become an Agentblazer and build the future.
+
+Agentblazers have the skills and the vision to transform how work gets done in the agentic AI era. They keep pace with innovation, use digital labor to create value for their companies, and leverage Agentforce to turn ideas into reality. The future is here, and it belongs to Agentblazers.
+
+## Learn in-demand AI skills today
+
+Agentblazer Status showcases your expertise in building autonomous agents and powering the digital workforce. As AI evolves, Agentblazer Status keeps you at the forefront of innovation with regularly updated learning content featuring the latest breakthroughs and practical applications.
