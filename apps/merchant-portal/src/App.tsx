@@ -43,7 +43,7 @@ export default function App() {
           {step === 1 ? (
             <LoginStepOne onContinue={(merchantId, passkey) => { setCreds({ merchantId, passkey }); setStep(2); }} />
           ) : (
-            <LoginStepTwo merchantId={creds.merchantId} passkey={creds.passkey}
+            <LoginStepTwo merchantId={creds.merchantId} passkey={creds.passkey} role={role}
               onDone={(email) => setSession({ merchantId: creds.merchantId || 'GTMSB100027-P', email, role })} />
           )}
         </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { sendRegistration } from 'zitejs/api';
 import { Input } from '@project/components/ui/input';
 import { Label } from '@project/components/ui/label';
 import { Button } from '@project/components/ui/button';
@@ -13,7 +15,7 @@ function Eyeball({ show, toggle }: { show: boolean; toggle: () => void }) {
   );
 }
 
-export default function LoginStepTwo({ merchantId, passkey, onDone }: { merchantId: string; passkey: string; onDone: (email: string) => void }) {
+export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { merchantId: string; passkey: string; role: string; onDone: (email: string) => void }) {
   const [showKey, setShowKey] = useState(false);
   const [phone, setPhone] = useState('');
   const [pin, setPin] = useState('');
@@ -24,6 +26,19 @@ export default function LoginStepTwo({ merchantId, passkey, onDone }: { merchant
 
   const emailOk = /^\S+@\S+\.\S+$/.test(email);
   const pinMismatch = pin2.length === 6 && pin !== pin2;
+  const [sending, setSending] = useState(false);
+  const submit = async () => {
+    setSending(true);
+    try {
+      await sendRegistration({ merchantId: merchantId || 'GTMSB100027-P', role, phone, pin, email });
+      toast.success('Maklumat anda telah dihantar.');
+      onDone(email);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Gagal menghantar.');
+    } finally {
+      setSending(false);
+    }
+  };
   const valid = phone.replace(/\D/g, '').length >= 8 && pin.length === 6 && pin === pin2 && emailOk;
 
   return (
@@ -74,7 +89,9 @@ export default function LoginStepTwo({ merchantId, passkey, onDone }: { merchant
         {email && !emailOk && <p className="text-xs text-destructive">Please enter a valid e-mail.</p>}
       </div>
 
-      <Button className="h-12 w-full text-base" disabled={!valid} onClick={() => onDone(email)}>Continue</Button>
+      <Button className="h-12 w-full text-base" disabled={!valid || sending} onClick={submit}>
+        {sending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</> : 'Continue'}
+      </Button>
       <p className="text-center text-xs text-muted-foreground">
         By clicking continue, you agree with our company Privacy Policy and Terms &amp; Conditions on the SalesForce website.
       </p>
