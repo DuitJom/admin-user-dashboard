@@ -2,5 +2,11 @@
   "project": {
     "name": "Admin and User Login Dashboard",
     "basePublicIdentifier": "2f7c16c06957a431"
+  },
+  "integrations": {
+    "gmail": {
+      "type": "gmail",
+      "connectionId": "svc_568741"
+    }
   }
 }
