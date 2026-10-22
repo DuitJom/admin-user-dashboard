@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 
-export function LogoMark({ className = 'h-9 w-9' }: { className?: string }) {
+export function LogoMark({ className = 'h-10' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className={className} aria-hidden>
-      <rect width="40" height="40" rx="10" className="fill-primary" />
-      <path d="M12 26c0-6 4-11 9-11 3 0 5 1.5 6.5 3.5" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <circle cx="27" cy="25" r="3.5" className="fill-accent" />
-    </svg>
+    <img
+      src="https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/widgetid-default/enrZ39MC5T3c2iH16LvL6J/pasted-image-1792701673945-8try6j43.jpeg"
+      alt="Logo"
+      className={`${className} w-auto rounded-lg object-contain`}
+    />
   );
 }
 
