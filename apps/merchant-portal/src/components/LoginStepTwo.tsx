@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Eye, EyeOff, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { Input } from '@project/components/ui/input';
 import { Label } from '@project/components/ui/label';
 import { Button } from '@project/components/ui/button';
-import {
-  AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@project/components/ui/alert-dialog';
 import CodeBoxes from './CodeBoxes';
-import { LiveCheck, LiveCross } from './icons';
 
 function Eyeball({ show, toggle }: { show: boolean; toggle: () => void }) {
   return (
@@ -25,22 +21,10 @@ export default function LoginStepTwo({ merchantId, passkey, onDone }: { merchant
   const [showPin, setShowPin] = useState(false);
   const [showPin2, setShowPin2] = useState(false);
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [countdown, setCountdown] = useState(0);
-  const [sent, setSent] = useState(false);
-  const [notice, setNotice] = useState(false);
-
-  useEffect(() => {
-    if (countdown <= 0) return;
-    const t = setTimeout(() => setCountdown((c) => c - 1), 1000);
-    return () => clearTimeout(t);
-  }, [countdown]);
 
   const emailOk = /^\S+@\S+\.\S+$/.test(email);
   const pinMismatch = pin2.length === 6 && pin !== pin2;
-  const valid = phone.replace(/\D/g, '').length >= 8 && pin.length === 6 && pin === pin2 && emailOk && sent && otp.length === 6;
-
-  const requestOtp = () => { setSent(true); setCountdown(59); setNotice(true); };
+  const valid = phone.replace(/\D/g, '').length >= 8 && pin.length === 6 && pin === pin2 && emailOk;
 
   return (
     <div className="space-y-5">
@@ -87,40 +71,13 @@ export default function LoginStepTwo({ merchantId, passkey, onDone }: { merchant
       <div className="space-y-1.5">
         <Label>E-MAIL*</Label>
         <Input type="email" placeholder="Please enter your e-mail here" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Button variant="secondary" className="w-full" disabled={!emailOk || countdown > 0} onClick={requestOtp}>
-          <Mail className="mr-2 h-4 w-4" /> {sent ? 'Resend OTP' : 'Request OTP'}
-        </Button>
-        {sent && (
-          <p className="text-xs text-muted-foreground">
-            Not receive the OTP code? {countdown > 0 ? <>Resend again in <b>{countdown}s</b>.</> : 'You can resend now.'}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <Label>Enter OTP code here</Label>
-        <div className="flex items-center gap-3">
-          <CodeBoxes value={otp} onChange={setOtp} />
-          {otp.length === 6 ? <LiveCheck key="ok" /> : <LiveCross key="no" />}
-        </div>
+        {email && !emailOk && <p className="text-xs text-destructive">Please enter a valid e-mail.</p>}
       </div>
 
       <Button className="h-12 w-full text-base" disabled={!valid} onClick={() => onDone(email)}>Continue</Button>
       <p className="text-center text-xs text-muted-foreground">
         By clicking continue, you agree with our company Privacy Policy and Terms &amp; Conditions on the SalesForce website.
       </p>
-
-      <AlertDialog open={notice} onOpenChange={setNotice}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Kod Pengesahan Dihantar</AlertDialogTitle>
-            <AlertDialogDescription>
-              Kod Pengesahan telah dihantar ke alamat e-mel anda. Sila periksa peti Masuk atau folder SPAM/JUNK untuk dapatkan.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter><AlertDialogAction>OK</AlertDialogAction></AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }

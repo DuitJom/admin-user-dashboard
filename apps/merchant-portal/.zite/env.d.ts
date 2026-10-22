@@ -5,6 +5,8 @@ declare namespace NodeJS {
   interface ProcessEnv {
     /** Public URL of the current app. */
     ZITE_APP_URL: string;
+    /** gmail access token (gmail) */
+    ZITE_GMAIL_ACCESS_TOKEN: string;
     [key: string]: string | undefined;
   }
 }

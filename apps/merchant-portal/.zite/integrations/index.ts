@@ -17,8 +17,10 @@ import type { Connected, NeedsConnect } from 'zitejs/runtime';
 
 export type { Connected, NeedsConnect };
 
-export type IntegrationName = never;
+export type IntegrationName = 'gmail';
 
-export type IntegrationByName = {};
+export type IntegrationByName = {
+  'gmail': Connected;
+};
 
 export const integrations = createIntegrationsClient<IntegrationByName>();
