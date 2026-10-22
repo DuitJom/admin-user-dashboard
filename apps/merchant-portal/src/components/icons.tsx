@@ -1,11 +1,18 @@
 import { motion } from 'framer-motion';
 
-export function LogoMark({ className = 'h-10' }: { className?: string }) {
+export function LogoMark({ className = '' }: { className?: string }) {
   return (
-    <img
-      src="https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/widgetid-default/enrZ39MC5T3c2iH16LvL6J/pasted-image-1792701673945-8try6j43.jpeg"
-      alt="Logo"
-      className={`${className} w-auto rounded-lg object-contain`}
+    <div
+      role="img"
+      aria-label="Salesforce"
+      className={`h-12 w-[74px] shrink-0 ${className}`}
+      style={{
+        backgroundImage: 'url(https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/widgetid-default/enrZ39MC5T3c2iH16LvL6J/pasted-image-1792701673945-8try6j43.jpeg)',
+        backgroundSize: '242px auto',
+        backgroundPosition: '-42px -42px',
+        backgroundRepeat: 'no-repeat',
+        mixBlendMode: 'multiply',
+      }}
     />
   );
 }
