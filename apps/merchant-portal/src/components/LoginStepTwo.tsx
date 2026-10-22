@@ -60,8 +60,8 @@ export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { me
       <div className="space-y-1.5">
         <Label>PHONE NUMBER*</Label>
         <div className="flex">
-          <span className="flex items-center rounded-l-md border border-r-0 bg-muted px-3 text-sm font-medium">+60</span>
-          <Input className="rounded-l-none" inputMode="numeric" placeholder="123456789" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))} />
+          <span className="flex items-center rounded-l-xl border border-r-0 bg-muted px-4 text-sm font-medium">+60</span>
+          <Input className="h-12 rounded-l-none rounded-r-xl" inputMode="numeric" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))} />
         </div>
       </div>
 
@@ -85,11 +85,11 @@ export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { me
 
       <div className="space-y-1.5">
         <Label>E-MAIL*</Label>
-        <Input type="email" placeholder="Please enter your e-mail here" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input type="email" className="h-12 rounded-xl" value={email} onChange={(e) => setEmail(e.target.value)} />
         {email && !emailOk && <p className="text-xs text-destructive">Please enter a valid e-mail.</p>}
       </div>
 
-      <Button className="h-12 w-full text-base" disabled={!valid || sending} onClick={submit}>
+      <Button className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-primary/20" disabled={!valid || sending} onClick={submit}>
         {sending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</> : 'Continue'}
       </Button>
       <p className="text-center text-xs text-muted-foreground">

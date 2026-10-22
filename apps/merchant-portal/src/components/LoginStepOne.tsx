@@ -36,13 +36,13 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
       <div className="space-y-4">
         <div className="space-y-1.5">
           <Label>MERCHANT ID*</Label>
-          <Input value={merchantId} onChange={(e) => setMerchantId(e.target.value)} placeholder="e.g. GTMSB100027-P" disabled={loading} />
+          <Input value={merchantId} onChange={(e) => setMerchantId(e.target.value)} disabled={loading} className="h-12 rounded-xl" />
         </div>
         <div className="space-y-1.5">
           <Label>PASSKEYS*</Label>
           <CodeBoxes value={passkey} onChange={setPasskey} masked />
         </div>
-        <Button onClick={find} disabled={!canFind} className="w-full bg-green-600 text-white hover:bg-green-700">
+        <Button onClick={find} disabled={!canFind} className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-green-600/20 bg-green-600 text-white hover:bg-green-700">
           {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Searching merchant...</> : <><Search className="mr-2 h-4 w-4" /> Find</>}
         </Button>
       </div>
