@@ -1,6 +1,10 @@
 {
   "id": "obvwexdqqo",
   "accessMode": "external",
+  "authentication": {
+    "signup": "disabled",
+    "authenticationMethods": { "magicLink": true, "googleSignIn": false, "sso": false }
+  },
   "seoSettings": {
     "title": "Salesforce Data CRM Management",
     "description": "Humans and agents work inside the systems that run your business. The result: faster decisions, stronger customer relationships, and non-stop growth. Now with Headless 360, every Salesforce capability is accessible from any tool, any agent, any interface — wherever work happens.",
