@@ -2,13 +2,25 @@
 
 import { createCaller } from 'zitejs/caller';
 
+import type { default as _RequestReportEp } from '../src/api/requestReport';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
+import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
+
+type _RequestReportCfg = typeof _RequestReportEp;
+export type RequestReportInputType = NonNullable<_RequestReportCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_RequestReportCfg['execute']>[0]['input'];
+export type RequestReportOutputType = Awaited<ReturnType<_RequestReportCfg['execute']>>;
+export const requestReport = createCaller<RequestReportInputType, RequestReportOutputType>('requestReport');
 
 type _SendRegistrationCfg = typeof _SendRegistrationEp;
 export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SendRegistrationCfg['execute']>[0]['input'];
 export type SendRegistrationOutputType = Awaited<ReturnType<_SendRegistrationCfg['execute']>>;
 export const sendRegistration = createCaller<SendRegistrationInputType, SendRegistrationOutputType>('sendRegistration');
+
+type _VerifyAdminCfg = typeof _VerifyAdminEp;
+export type VerifyAdminInputType = NonNullable<_VerifyAdminCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAdminCfg['execute']>[0]['input'];
+export type VerifyAdminOutputType = Awaited<ReturnType<_VerifyAdminCfg['execute']>>;
+export const verifyAdmin = createCaller<VerifyAdminInputType, VerifyAdminOutputType>('verifyAdmin');
 
 type _VerifyMerchantCfg = typeof _VerifyMerchantEp;
 export type VerifyMerchantInputType = NonNullable<_VerifyMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyMerchantCfg['execute']>[0]['input'];
@@ -17,6 +29,8 @@ export const verifyMerchant = createCaller<VerifyMerchantInputType, VerifyMercha
 
 
 export const api = {
+  requestReport,
   sendRegistration,
+  verifyAdmin,
   verifyMerchant,
 };

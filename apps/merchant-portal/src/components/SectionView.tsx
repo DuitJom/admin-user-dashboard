@@ -6,17 +6,11 @@ import { Textarea } from '@project/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@project/components/ui/card';
 import { NAV, Section } from './Sidebar';
 import MerchantCard from './MerchantCard';
+import Dashboard from './Dashboard';
+import { CLIENT } from './data';
+import { OverdueBadge } from './StatusBadge';
 
 export interface Session { merchantId: string; email: string; role: 'admin' | 'user' }
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <Card><CardContent className="p-5">
-      <p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
-      <p className="mt-1 text-2xl font-extrabold">{value}</p>
-    </CardContent></Card>
-  );
-}
 
 function Contact() {
   const [msg, setMsg] = useState('');
@@ -29,22 +23,31 @@ function Contact() {
   );
 }
 
-export default function SectionView({ section, session, onSelect }: { section: Section; session: Session; onSelect: (s: Section) => void }) {
+export default function SectionView({ section, session, onSelect, onQuit }: { section: Section; session: Session; onSelect: (s: Section) => void; onQuit: () => void }) {
   const title = NAV.find((n) => n.id === section)?.label;
   let body: JSX.Element;
   switch (section) {
     case 'dashboard':
-      body = (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Stat label="Merchant" value={session.merchantId} />
-          <Stat label="Role" value={session.role === 'admin' ? 'Admin' : 'User'} />
-          <Stat label="Records" value="1" />
-          <Stat label="Status" value="Active" />
-        </div>
-      );
+      body = <Dashboard onQuit={onQuit} />;
       break;
     case 'profile':
-      body = <Card><CardContent className="space-y-2 p-5 text-sm"><p><b>Email:</b> {session.email}</p><p><b>Merchant ID:</b> {session.merchantId}</p><p><b>Role:</b> {session.role}</p></CardContent></Card>;
+      body = (
+        <Card className="rounded-2xl"><CardContent className="p-5">
+          {([
+            ['Full Name', CLIENT.fullName], ['MyKad', CLIENT.myKad], ['Phone Number', CLIENT.phone],
+            ['E-mail', CLIENT.email], ['Merchant Name', CLIENT.merchantName], ['Merchant ID', session.merchantId],
+          ] as const).map(([k, val]) => (
+            <div key={k} className="flex flex-col gap-0.5 border-b py-3 sm:flex-row sm:justify-between">
+              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{k}</span>
+              <span className="font-semibold">{val}</span>
+            </div>
+          ))}
+          <div className="flex items-center justify-between py-3">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</span>
+            <OverdueBadge />
+          </div>
+        </CardContent></Card>
+      );
       break;
     case 'creditor':
     case 'records':

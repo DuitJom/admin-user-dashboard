@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Dices, User, Database, FileText, Mail, Trash2, SearchCheck, Settings, Bell, ShieldCheck, Users, BarChart3, X } from 'lucide-react';
+import { Dices, User, Database, FileText, Mail, Trash2, SearchCheck, Settings, Bell, ShieldCheck, Users, BarChart3, X, Lock } from 'lucide-react';
 import { cn } from '@project/components/lib/utils';
+
+export const LOCKED: Section[] = ['database', 'records', 'security', 'settings'];
 
 export type Section = 'dashboard' | 'profile' | 'database' | 'records' | 'creditor' | 'users' | 'reports' | 'notifications' | 'security' | 'settings' | 'contact' | 'clear';
 
@@ -39,6 +41,7 @@ export default function Sidebar({ open, onClose, active, onSelect, isAdmin }: Pr
                   className={cn('flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition hover:bg-[hsl(var(--sidebar-accent))]',
                     active === id && 'bg-[hsl(var(--sidebar-primary))] text-white hover:bg-[hsl(var(--sidebar-primary))]')}>
                   <Icon className="h-5 w-5" /> {label}
+                  {LOCKED.includes(id) && !isAdmin && <Lock className="ml-auto h-4 w-4 opacity-60" />}
                 </button>
               ))}
             </nav>

@@ -3,7 +3,8 @@ import { Loader2 } from 'lucide-react';
 import { useAuth, loginWithRedirect, logout as signOut } from 'zitejs/auth';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
-import Sidebar, { Section } from './components/Sidebar';
+import Sidebar, { Section, LOCKED } from './components/Sidebar';
+import AdminLoginDialog from './components/AdminLoginDialog';
 import LoginStepOne from './components/LoginStepOne';
 import LoginStepTwo from './components/LoginStepTwo';
 import SectionView, { Session } from './components/SectionView';
@@ -42,6 +43,7 @@ function Portal() {
   const [session, setSession] = useState<Session | null>(null);
   const [menu, setMenu] = useState(false);
   const [section, setSection] = useState<Section>('dashboard');
+  const [pending, setPending] = useState<Section | null>(null);
   const role = 'user' as const;
 
   const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); signOut(); };
@@ -58,10 +60,16 @@ function Portal() {
       <div className="min-h-screen">
         {bg}
         <TopNav onMenu={() => setMenu(true)} onLogout={logout} />
-        <Sidebar open={menu} onClose={() => setMenu(false)} active={section} onSelect={setSection} isAdmin={session.role === 'admin'} />
+        <Sidebar open={menu} onClose={() => setMenu(false)} active={section} isAdmin={session.role === 'admin'}
+          onSelect={(s) => {
+            if (LOCKED.includes(s) && session.role !== 'admin') { setPending(s); return; }
+            setSection(s);
+          }} />
+        <AdminLoginDialog open={!!pending} onClose={() => setPending(null)}
+          onSuccess={() => { setSession({ ...session, role: 'admin' }); if (pending) setSection(pending); setPending(null); }} />
         <div className="mx-auto max-w-5xl p-4 sm:p-8">
           <div className="rounded-3xl bg-card/95 shadow-2xl backdrop-blur">
-            <SectionView section={section} session={session} onSelect={setSection} />
+            <SectionView section={section} session={session} onSelect={setSection} onQuit={logout} />
           </div>
         </div>
         <Toaster />
