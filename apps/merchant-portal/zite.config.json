@@ -3,7 +3,11 @@
   "accessMode": "external",
   "authentication": {
     "signup": "disabled",
-    "authenticationMethods": { "magicLink": true, "googleSignIn": false, "sso": false }
+    "authenticationMethods": {
+      "magicLink": true,
+      "googleSignIn": true,
+      "sso": false
+    }
   },
   "seoSettings": {
     "title": "Salesforce Data CRM Management",
