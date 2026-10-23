@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
-import { useAuth } from 'zitejs/auth';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
 import Sidebar, { Section, LOCKED } from './components/Sidebar';
@@ -24,14 +22,6 @@ function Stepper({ step }: { step: 1 | 2 }) {
 }
 
 export default function App() {
-  const { user, isLoading } = useAuth();
-  if (isLoading || !user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[hsl(var(--sidebar-background))]">
-        <Loader2 className="h-8 w-8 animate-spin text-white" />
-      </div>
-    );
-  }
   return <Portal />;
 }
 
