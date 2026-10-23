@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, IdCard, KeyRound, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { sendRegistration } from 'zitejs/api';
 import { Input } from '@project/components/ui/input';
@@ -44,13 +44,17 @@ export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { me
   return (
     <div className="space-y-5">
       <div className="space-y-1.5">
-        <Label>MERCHANT ID</Label>
-        <Input value={merchantId} readOnly className="bg-muted font-mono" />
+        <Label htmlFor="verified-merchant-id">MERCHANT ID</Label>
+        <div className="flex h-12 items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 px-3 shadow-sm">
+          <IdCard className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
+          <Input id="verified-merchant-id" value={merchantId} readOnly className="h-full min-w-0 flex-1 rounded-none border-0 bg-transparent px-0 font-mono text-slate-900 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0" />
+        </div>
       </div>
       <div className="space-y-1.5">
-        <Label>PASSKEY</Label>
-        <div className="flex items-center gap-2 rounded-md border bg-muted px-3">
-          <input readOnly type={showKey ? 'text' : 'password'} value={passkey} className="h-10 flex-1 bg-transparent font-mono outline-none" />
+        <Label htmlFor="verified-merchant-passkey">PASSKEY</Label>
+        <div className="flex h-12 items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-3 shadow-sm">
+          <KeyRound className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
+          <input id="verified-merchant-passkey" readOnly type={showKey ? 'text' : 'password'} value={passkey} className="h-full min-w-0 flex-1 bg-transparent font-mono text-slate-900 outline-none" />
           <Eyeball show={showKey} toggle={() => setShowKey(!showKey)} />
         </div>
       </div>

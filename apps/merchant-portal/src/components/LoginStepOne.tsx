@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AlertCircle, Eye, EyeOff, Loader2, Search } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, IdCard, KeyRound, Loader2, Search } from 'lucide-react';
 import { Input } from '@project/components/ui/input';
 import { Label } from '@project/components/ui/label';
 import { Button } from '@project/components/ui/button';
@@ -45,21 +45,31 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
 
   return (
     <div>
+      <div className="mb-6 rounded-2xl border border-primary/15 bg-primary/5 px-5 py-6 text-center">
+        <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-2xl border bg-white p-3 shadow-sm">
+          <img src="https://moneylinecredit.my/wp-content/uploads/2021/09/logo_mlc_512_red.png" alt="Merchant logo" className="h-full w-full object-contain" />
+        </div>
+        <p className="text-base font-semibold leading-relaxed text-primary">Identify background records, customer information and customer history in Salesforce.</p>
+      </div>
       <p className="mb-5 text-sm text-muted-foreground">Please enter your Merchant ID &amp; Passkey below:</p>
       <div className="space-y-4">
         <div className="space-y-1.5">
-          <Label>MERCHANT ID*</Label>
-          <Input value={merchantId} onChange={(e) => { setMerchantId(e.target.value); setError(''); }} disabled={loading || found}
-            className="h-12 rounded-xl font-mono" aria-invalid={!!error} />
+          <Label htmlFor="merchant-id">MERCHANT ID*</Label>
+          <div className="flex h-12 items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring">
+            <IdCard className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
+            <Input id="merchant-id" value={merchantId} onChange={(e) => { setMerchantId(e.target.value); setError(''); }} disabled={loading || found}
+              className="h-full min-w-0 flex-1 rounded-none border-0 bg-transparent px-0 font-mono text-slate-900 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0" aria-invalid={!!error} />
+          </div>
         </div>
         <div className="space-y-1.5">
-          <Label>PASSKEY*</Label>
-          <div className="flex h-12 items-center gap-2 rounded-xl border border-input bg-background px-3 focus-within:ring-2 focus-within:ring-ring">
-            <input type={show ? 'text' : 'password'} value={passkey} disabled={loading || found}
+          <Label htmlFor="merchant-passkey">PASSKEY*</Label>
+          <div className="flex h-12 items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring">
+            <KeyRound className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
+            <input id="merchant-passkey" type={show ? 'text' : 'password'} value={passkey} disabled={loading || found}
               onChange={(e) => { setPasskey(e.target.value); setError(''); }}
               onKeyDown={(e) => e.key === 'Enter' && canFind && find()}
-              className="h-full flex-1 bg-transparent font-mono outline-none" />
-            <button type="button" onClick={() => setShow(!show)} className="text-muted-foreground hover:text-foreground" aria-label="Show/Hide">
+              className="h-full min-w-0 flex-1 bg-transparent font-mono text-slate-900 outline-none" />
+            <button type="button" onClick={() => setShow(!show)} className="shrink-0 text-gray-500 hover:text-gray-700" aria-label="Show/Hide">
               {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
