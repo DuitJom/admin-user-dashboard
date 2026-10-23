@@ -92,6 +92,9 @@ export type DuitJomCrmDataRecordType = {
   notes?: string;
   active?: boolean;
   user?: string | string[];
+  merchantIdUser?: string;
+  passkey?: string;
+  ongoing?: boolean;
 };
 
 /** What you may write when creating or updating a record in the "DuitJom CRM Data" table. */
@@ -100,6 +103,33 @@ export type DuitJomCrmDataRecordInput = {
   notes: string | null;
   active: string | boolean | null;
   user: string | string[] | null;
+  merchantIdUser: string | null;
+  passkey: string | null;
+  ongoing: string | boolean | null;
+};
+
+/** A record in the "Salesforcedatabase" table, as it is read back. */
+export type SalesforcedatabaseRecordType = {
+  id: string;
+  /** Primary field. "Name" */
+  name?: string;
+  notes?: string;
+  active?: boolean;
+  httpsWwwDuitjomMy?: string;
+  /** "Merchant ID User". 2 decimal places, format: local (e.g. 1,000,000.50) */
+  merchantIdUser?: number;
+  /** "Merchant ID User-". 0 decimal places, format: local (e.g. 1,000,000.50) */
+  merchantIdUser2?: number;
+};
+
+/** What you may write when creating or updating a record in the "Salesforcedatabase" table. */
+export type SalesforcedatabaseRecordInput = {
+  name: string | null;
+  notes: string | null;
+  active: string | boolean | null;
+  httpsWwwDuitjomMy: string | null;
+  merchantIdUser: string | number | null;
+  merchantIdUser2: string | number | null;
 };
 
 export interface ZiteAuthUser {
@@ -113,6 +143,7 @@ export interface ZiteAuthUser {
 
 export const zite = {
   duitJomCrmData: createTableClient<DuitJomCrmDataRecordType, DuitJomCrmDataRecordInput>('DuitJomCrmData'), // "DuitJom CRM Data"
+  salesforcedatabase: createTableClient<SalesforcedatabaseRecordType, SalesforcedatabaseRecordInput>('Salesforcedatabase'), // "Salesforcedatabase"
   sql: createSqlClient(),
   auth: createAuthClient<ZiteAuthUser>(),
 };

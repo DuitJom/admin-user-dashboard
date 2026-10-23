@@ -1,6 +1,6 @@
 {
   "id": "obvwexdqqo",
-  "accessMode": "external",
+  "accessMode": "internal",
   "authentication": {
     "signup": "disabled",
     "authenticationMethods": {

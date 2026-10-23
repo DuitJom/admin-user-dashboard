@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { useAuth, loginWithRedirect, logout as signOut } from 'zitejs/auth';
+import { useAuth } from 'zitejs/auth';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
 import Sidebar, { Section, LOCKED } from './components/Sidebar';
@@ -25,9 +25,6 @@ function Stepper({ step }: { step: 1 | 2 }) {
 
 export default function App() {
   const { user, isLoading } = useAuth();
-  useEffect(() => {
-    if (!isLoading && !user) loginWithRedirect();
-  }, [isLoading, user]);
   if (isLoading || !user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[hsl(var(--sidebar-background))]">
@@ -47,7 +44,7 @@ function Portal() {
   const [pending, setPending] = useState<Section | null>(null);
   const role = 'user' as const;
 
-  const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); signOut(); };
+  const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); };
 
   const bg = (
     <div className="pointer-events-none fixed inset-0 -z-10">
