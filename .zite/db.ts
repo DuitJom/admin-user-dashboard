@@ -91,6 +91,7 @@ export type DuitJomCrmDataRecordType = {
   name?: string;
   notes?: string;
   active?: boolean;
+  user?: string | string[];
 };
 
 /** What you may write when creating or updating a record in the "DuitJom CRM Data" table. */
@@ -98,6 +99,7 @@ export type DuitJomCrmDataRecordInput = {
   name: string | null;
   notes: string | null;
   active: string | boolean | null;
+  user: string | string[] | null;
 };
 
 export interface ZiteAuthUser {

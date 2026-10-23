@@ -32,6 +32,19 @@
             "type": "checkbox",
             "template": {}
           }
+        },
+        {
+          "id": "fudmL68muHC",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": true,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
         }
       ]
     }
