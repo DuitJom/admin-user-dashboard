@@ -30,7 +30,7 @@ export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { me
   const submit = async () => {
     setSending(true);
     try {
-      await sendRegistration({ merchantId: merchantId || 'GTMSB100027-P', role, phone, pin, email });
+      await sendRegistration({ merchantId, role, phone, pin, email });
       toast.success('Maklumat anda telah dihantar.');
       onDone(email);
     } catch (e) {
@@ -45,7 +45,7 @@ export default function LoginStepTwo({ merchantId, passkey, role, onDone }: { me
     <div className="space-y-5">
       <div className="space-y-1.5">
         <Label>MERCHANT ID</Label>
-        <Input value={merchantId || 'GTMSB100027-P'} readOnly className="bg-muted font-mono" />
+        <Input value={merchantId} readOnly className="bg-muted font-mono" />
       </div>
       <div className="space-y-1.5">
         <Label>PASSKEY</Label>

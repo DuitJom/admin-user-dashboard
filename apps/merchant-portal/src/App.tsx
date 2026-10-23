@@ -80,7 +80,7 @@ function Portal() {
             <LoginStepOne onContinue={(merchantId, passkey) => { setCreds({ merchantId, passkey }); setStep(2); }} />
           ) : (
             <LoginStepTwo merchantId={creds.merchantId} passkey={creds.passkey} role={role}
-              onDone={(email) => setSession({ merchantId: creds.merchantId || 'GTMSB100027-P', email, role })} />
+              onDone={(email) => setSession({ merchantId: creds.merchantId, email, role })} />
           )}
           {step === 1 && <SignInGuide />}
         </div>

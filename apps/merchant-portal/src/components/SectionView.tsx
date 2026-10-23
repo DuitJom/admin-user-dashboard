@@ -8,8 +8,7 @@ import { NAV, Section } from './Sidebar';
 import MerchantCard from './MerchantCard';
 import Dashboard from './Dashboard';
 import ReportButton from './ReportButton';
-import { CLIENT } from './data';
-import { OverdueBadge } from './StatusBadge';
+import MyProfile from './MyProfile';
 
 export interface Session { merchantId: string; email: string; role: 'admin' | 'user' }
 
@@ -32,24 +31,7 @@ export default function SectionView({ section, session, onSelect, onQuit }: { se
       body = <Dashboard onQuit={onQuit} />;
       break;
     case 'profile':
-      body = (
-        <Card className="rounded-2xl"><CardContent className="p-5">
-          {([
-            ['Full Name', CLIENT.fullName], ['MyKad', CLIENT.myKad], ['Phone Number', CLIENT.phone],
-            ['E-mail', CLIENT.email], ['Merchant Name', CLIENT.merchantName], ['Merchant ID', session.merchantId],
-          ] as const).map(([k, val]) => (
-            <div key={k} className="flex flex-col gap-0.5 border-b py-3 sm:flex-row sm:justify-between">
-              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{k}</span>
-              <span className="font-semibold">{val}</span>
-            </div>
-          ))}
-          <div className="flex items-center justify-between py-3">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</span>
-            <OverdueBadge />
-          </div>
-          <div className="flex justify-end pt-3"><ReportButton /></div>
-        </CardContent></Card>
-      );
+      body = <MyProfile />;
       break;
     case 'creditor':
     case 'records':

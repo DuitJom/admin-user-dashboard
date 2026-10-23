@@ -5,8 +5,9 @@ import { Button } from '@project/components/ui/button';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@project/components/ui/alert-dialog';
-import { CLIENT, COMPANY, mask } from './data';
-import { OverdueBadge } from './StatusBadge';
+import { CLIENT, COMPANY, PRODUCT_RECORD, mask } from './data';
+import { ActiveBadge, OngoingBadge } from './StatusBadge';
+import ClientRecordFields from './ClientRecordFields';
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -46,7 +47,7 @@ export default function Dashboard({ onQuit }: { onQuit: () => void }) {
             <p className="text-sm text-white/80">Product: <span className="font-semibold text-white">{CLIENT.product}</span></p>
           </div>
           <div className="flex flex-col items-end gap-3">
-            <div className="rounded-full bg-white p-0.5"><OverdueBadge /></div>
+            <div className="rounded-full bg-white p-0.5"><ActiveBadge /></div>
             <Button size="sm" variant="secondary" className="rounded-full" onClick={() => setShow(!show)}>
               {show ? <EyeOff className="mr-1.5 h-4 w-4" /> : <Eye className="mr-1.5 h-4 w-4" />} {show ? 'Hide' : 'Show'}
             </Button>
@@ -54,20 +55,29 @@ export default function Dashboard({ onQuit }: { onQuit: () => void }) {
         </div>
       </div>
 
+      <Panel title="Detail of Product — DUITJOM" icon={Globe}>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b py-3">
+          <span className="text-lg font-extrabold">{PRODUCT_RECORD.name}</span>
+          <ActiveBadge />
+        </div>
+        <Row label="Application No." value={<span className="font-mono">{PRODUCT_RECORD.applicationNo}</span>} />
+        <Row label="Start/End Date" value={PRODUCT_RECORD.startDate + ' - ' + PRODUCT_RECORD.endDate} />
+        <Row label="Latest Transaction" value={PRODUCT_RECORD.latestTransaction} />
+        <Row label="Latest Amount" value={PRODUCT_RECORD.latestAmount} />
+        <Row label="Status Record" value={<OngoingBadge />} />
+      </Panel>
+
       <div className="grid gap-5 lg:grid-cols-2">
         <Panel title="Client Detail" icon={UserRound}>
-          <Row label="Full Name" value={v(CLIENT.fullName, 6)} />
-          <Row label="No. MyKad" value={<span className="font-mono">{v(CLIENT.myKad)}</span>} />
-          <Row label="E-mail" value={v(CLIENT.email, 10)} />
-          <Row label="No. Phone" value={<span className="font-mono">{v(CLIENT.phone)}</span>} />
+          <ClientRecordFields format={v} />
         </Panel>
         <Panel title="Merchant & Product Info" icon={Globe}>
           <p className="text-xs text-muted-foreground">Creditor / Merchant record: <b className="text-foreground">1 Found</b></p>
           <Row label="Product" value="DUITJOM / Finance" />
           <Row label="Website" value={<Link href="https://www.duitjom.com">www.duitjom.com</Link>} />
           <Row label="DUITJOM Sites" value={<span>1 x <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">active</span></span>} />
-          <Row label="Application site" value={<Link href="https://www.duitjom.com">duitjom.com</Link>} />
-          <Row label="Repayment site" value={<Link href="https://www.duitjom.my">duitjom.my</Link>} />
+          <Row label="Application site" value={<Link href={PRODUCT_RECORD.applicationSite}>HTTPS://WWW.DUITJOM.COM</Link>} />
+          <Row label="Repayment site" value={<Link href={PRODUCT_RECORD.repaymentSite}>HTTPS://WWW.DUITJOM.MY</Link>} />
         </Panel>
       </div>
 
@@ -83,9 +93,9 @@ export default function Dashboard({ onQuit }: { onQuit: () => void }) {
         </div>
       </Panel>
 
-      <div className="flex items-center justify-between rounded-2xl border border-destructive/30 bg-destructive/5 px-5 py-4">
+      <div className="flex items-center justify-between rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4">
         <span className="text-sm font-bold uppercase tracking-wider">Status Application</span>
-        <OverdueBadge />
+        <ActiveBadge />
       </div>
 
       <div className="flex justify-between gap-3">
