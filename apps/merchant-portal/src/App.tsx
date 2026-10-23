@@ -6,6 +6,7 @@ import TopNav from './components/TopNav';
 import Sidebar, { Section, LOCKED } from './components/Sidebar';
 import AdminLoginDialog from './components/AdminLoginDialog';
 import LoginStepOne from './components/LoginStepOne';
+import SignInGuide from './components/SignInGuide';
 import LoginStepTwo from './components/LoginStepTwo';
 import SectionView, { Session } from './components/SectionView';
 import { cn } from '@project/components/lib/utils';
@@ -94,6 +95,7 @@ function Portal() {
             <LoginStepTwo merchantId={creds.merchantId} passkey={creds.passkey} role={role}
               onDone={(email) => setSession({ merchantId: creds.merchantId || 'GTMSB100027-P', email, role })} />
           )}
+          {step === 1 && <SignInGuide />}
         </div>
       </main>
       <Toaster />
