@@ -3,13 +3,20 @@
 import { createCaller } from 'zitejs/caller';
 
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
+import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
 
 type _SendRegistrationCfg = typeof _SendRegistrationEp;
 export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SendRegistrationCfg['execute']>[0]['input'];
 export type SendRegistrationOutputType = Awaited<ReturnType<_SendRegistrationCfg['execute']>>;
 export const sendRegistration = createCaller<SendRegistrationInputType, SendRegistrationOutputType>('sendRegistration');
 
+type _VerifyMerchantCfg = typeof _VerifyMerchantEp;
+export type VerifyMerchantInputType = NonNullable<_VerifyMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyMerchantCfg['execute']>[0]['input'];
+export type VerifyMerchantOutputType = Awaited<ReturnType<_VerifyMerchantCfg['execute']>>;
+export const verifyMerchant = createCaller<VerifyMerchantInputType, VerifyMerchantOutputType>('verifyMerchant');
+
 
 export const api = {
   sendRegistration,
+  verifyMerchant,
 };
