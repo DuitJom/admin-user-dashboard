@@ -17,10 +17,11 @@ import type { Connected, NeedsConnect } from 'zitejs/runtime';
 
 export type { Connected, NeedsConnect };
 
-export type IntegrationName = 'gmail';
+export type IntegrationName = 'gmail' | 'intercom';
 
 export type IntegrationByName = {
   'gmail': Connected;
+  'intercom': Connected;
 };
 
 export const integrations = createIntegrationsClient<IntegrationByName>();

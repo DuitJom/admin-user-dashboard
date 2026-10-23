@@ -84,6 +84,22 @@ export type ZiteAttachmentInput =
   | { url: string; filename?: string }
   | ZiteAttachment;
 
+/** A record in the "DuitJom CRM Data" table, as it is read back. */
+export type DuitJomCrmDataRecordType = {
+  id: string;
+  /** Primary field. "Name" */
+  name?: string;
+  notes?: string;
+  active?: boolean;
+};
+
+/** What you may write when creating or updating a record in the "DuitJom CRM Data" table. */
+export type DuitJomCrmDataRecordInput = {
+  name: string | null;
+  notes: string | null;
+  active: string | boolean | null;
+};
+
 export interface ZiteAuthUser {
   id: string;
   name: string;
@@ -94,6 +110,7 @@ export interface ZiteAuthUser {
 }
 
 export const zite = {
+  duitJomCrmData: createTableClient<DuitJomCrmDataRecordType, DuitJomCrmDataRecordInput>('DuitJomCrmData'), // "DuitJom CRM Data"
   sql: createSqlClient(),
   auth: createAuthClient<ZiteAuthUser>(),
 };

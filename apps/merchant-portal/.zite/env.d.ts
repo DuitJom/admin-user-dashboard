@@ -7,6 +7,8 @@ declare namespace NodeJS {
     ZITE_APP_URL: string;
     /** gmail access token (gmail) */
     ZITE_GMAIL_ACCESS_TOKEN: string;
+    /** intercom access token (intercom) */
+    ZITE_INTERCOM_ACCESS_TOKEN: string;
     /** Admin password for unlocking Database, Record, Security and Settings menus */
     ZITE_ADMIN_PASSWORD: string;
     /** Admin username for unlocking Database, Record, Security and Settings menus */

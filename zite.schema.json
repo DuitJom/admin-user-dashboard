@@ -1,3 +1,39 @@
 {
-  "tables": []
+  "tables": [
+    {
+      "id": "tjtJf22sBYN",
+      "sdkName": "duitJomCrmData",
+      "name": "DuitJom CRM Data",
+      "primaryFieldId": "fc6k323DSst",
+      "fields": [
+        {
+          "id": "fc6k323DSst",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f2bj4kQE7qP",
+          "sdkName": "notes",
+          "definition": {
+            "name": "Notes",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fbiQe58niRa",
+          "sdkName": "active",
+          "definition": {
+            "name": "Active",
+            "type": "checkbox",
+            "template": {}
+          }
+        }
+      ]
+    }
+  ]
 }
