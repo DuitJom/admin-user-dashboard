@@ -1,6 +1,6 @@
 {
   "id": "obvwexdqqo",
-  "accessMode": "internal",
+  "accessMode": "external",
   "authentication": {
     "signup": "disabled",
     "authenticationMethods": {
@@ -33,5 +33,7 @@
       "favicon32Url": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/favicon-32.png"
     },
     "backgroundColor": "#00a1d8"
-  }
+  },
+  "brandKitId": "bk_qw4x2snkMc",
+  "brandKitThemeHash": "boyq7k"
 }
