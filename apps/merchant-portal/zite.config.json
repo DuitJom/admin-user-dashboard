@@ -14,5 +14,16 @@
     "ZITE_ADMIN_USERNAME": {
       "description": "Admin username for unlocking Database, Record, Security and Settings menus"
     }
+  },
+  "pwaSettings": {
+    "enabled": true,
+    "appIconUrl": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/source-d12b8c70721116762e591870d29165ad",
+    "icons": {
+      "icon192Url": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/icon-192.png",
+      "icon512Url": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/icon-512.png",
+      "appleTouchIconUrl": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/apple-touch-icon.png",
+      "favicon32Url": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/favicon-32.png"
+    },
+    "backgroundColor": "#00a1d8"
   }
 }
