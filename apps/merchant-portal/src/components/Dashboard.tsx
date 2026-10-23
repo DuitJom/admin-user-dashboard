@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { toast } from 'sonner';
-import { Eye, EyeOff, Globe, MapPin, LogOut, FileBarChart, Loader2, Building2, UserRound } from 'lucide-react';
+import { Eye, EyeOff, Globe, MapPin, LogOut, Building2, UserRound } from 'lucide-react';
+import ReportButton from './ReportButton';
 import { Button } from '@project/components/ui/button';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@project/components/ui/alert-dialog';
-import { requestReport } from 'zitejs/api';
 import { CLIENT, COMPANY, mask } from './data';
 import { OverdueBadge } from './StatusBadge';
 
@@ -33,20 +32,7 @@ const Link = ({ href, children }: { href: string; children: React.ReactNode }) =
 
 export default function Dashboard({ onQuit }: { onQuit: () => void }) {
   const [show, setShow] = useState(false);
-  const [sending, setSending] = useState(false);
   const v = (s: string, keep = 4) => (show ? s : mask(s, keep));
-
-  const report = async () => {
-    setSending(true);
-    try {
-      await requestReport({ fullName: CLIENT.fullName, myKad: CLIENT.myKad, email: CLIENT.email, phone: CLIENT.phone, product: CLIENT.product, status: CLIENT.status });
-      toast.success('Report requested. It will be sent to your e-mail.');
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Request failed.');
-    } finally {
-      setSending(false);
-    }
-  };
 
   return (
     <div className="space-y-5">
@@ -118,9 +104,7 @@ export default function Dashboard({ onQuit }: { onQuit: () => void }) {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <Button className="h-12 rounded-xl px-6" onClick={report} disabled={sending}>
-          {sending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileBarChart className="mr-2 h-4 w-4" />} Request Report
-        </Button>
+        <ReportButton />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@project/components/ui
 import { NAV, Section } from './Sidebar';
 import MerchantCard from './MerchantCard';
 import Dashboard from './Dashboard';
+import ReportButton from './ReportButton';
 import { CLIENT } from './data';
 import { OverdueBadge } from './StatusBadge';
 
@@ -46,6 +47,7 @@ export default function SectionView({ section, session, onSelect, onQuit }: { se
             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</span>
             <OverdueBadge />
           </div>
+          <div className="flex justify-end pt-3"><ReportButton /></div>
         </CardContent></Card>
       );
       break;
