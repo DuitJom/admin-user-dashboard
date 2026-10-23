@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useAuth, loginWithRedirect, logout as signOut } from 'zitejs/auth';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
 import Sidebar, { Section } from './components/Sidebar';
@@ -20,6 +22,21 @@ function Stepper({ step }: { step: 1 | 2 }) {
 }
 
 export default function App() {
+  const { user, isLoading } = useAuth();
+  useEffect(() => {
+    if (!isLoading && !user) loginWithRedirect();
+  }, [isLoading, user]);
+  if (isLoading || !user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[hsl(var(--sidebar-background))]">
+        <Loader2 className="h-8 w-8 animate-spin text-white" />
+      </div>
+    );
+  }
+  return <Portal />;
+}
+
+function Portal() {
   const [step, setStep] = useState<1 | 2>(1);
   const [creds, setCreds] = useState({ merchantId: '', passkey: '' });
   const [session, setSession] = useState<Session | null>(null);
@@ -27,7 +44,7 @@ export default function App() {
   const [section, setSection] = useState<Section>('dashboard');
   const role = 'user' as const;
 
-  const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); };
+  const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); signOut(); };
 
   const bg = (
     <div className="pointer-events-none fixed inset-0 -z-10">
