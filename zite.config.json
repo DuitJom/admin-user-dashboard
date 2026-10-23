@@ -7,6 +7,10 @@
     "gmail": {
       "type": "gmail",
       "connectionId": "svc_568741"
+    },
+    "intercom": {
+      "type": "intercom",
+      "connectionId": "svc_568938"
     }
   },
   "envVars": {
