@@ -11,6 +11,10 @@
     "intercom": {
       "type": "intercom",
       "connectionId": "svc_568938"
+    },
+    "github": {
+      "type": "github",
+      "connectionId": "svc_569583"
     }
   },
   "envVars": {
