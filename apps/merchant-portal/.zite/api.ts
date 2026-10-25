@@ -2,10 +2,22 @@
 
 import { createCaller } from 'zitejs/caller';
 
+import type { default as _CheckDashboardAvailabilityEp } from '../src/api/checkDashboardAvailability';
+import type { default as _FindMerchantEp } from '../src/api/findMerchant';
 import type { default as _RequestReportEp } from '../src/api/requestReport';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
 import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
+
+type _CheckDashboardAvailabilityCfg = typeof _CheckDashboardAvailabilityEp;
+export type CheckDashboardAvailabilityInputType = NonNullable<_CheckDashboardAvailabilityCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_CheckDashboardAvailabilityCfg['execute']>[0]['input'];
+export type CheckDashboardAvailabilityOutputType = Awaited<ReturnType<_CheckDashboardAvailabilityCfg['execute']>>;
+export const checkDashboardAvailability = createCaller<CheckDashboardAvailabilityInputType, CheckDashboardAvailabilityOutputType>('checkDashboardAvailability');
+
+type _FindMerchantCfg = typeof _FindMerchantEp;
+export type FindMerchantInputType = NonNullable<_FindMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_FindMerchantCfg['execute']>[0]['input'];
+export type FindMerchantOutputType = Awaited<ReturnType<_FindMerchantCfg['execute']>>;
+export const findMerchant = createCaller<FindMerchantInputType, FindMerchantOutputType>('findMerchant');
 
 type _RequestReportCfg = typeof _RequestReportEp;
 export type RequestReportInputType = NonNullable<_RequestReportCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_RequestReportCfg['execute']>[0]['input'];
@@ -29,6 +41,8 @@ export const verifyMerchant = createCaller<VerifyMerchantInputType, VerifyMercha
 
 
 export const api = {
+  checkDashboardAvailability,
+  findMerchant,
   requestReport,
   sendRegistration,
   verifyAdmin,

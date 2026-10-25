@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
-import Sidebar, { Section, LOCKED } from './components/Sidebar';
-import AdminLoginDialog from './components/AdminLoginDialog';
 import LoginStepOne from './components/LoginStepOne';
 import SignInGuide from './components/SignInGuide';
 import LoginStepTwo from './components/LoginStepTwo';
-import SectionView, { Session } from './components/SectionView';
+import type { Session } from './components/SectionView';
+import TemporaryError from './components/TemporaryError';
 import { cn } from '@project/components/lib/utils';
 
 const BG = 'https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/widgetid-default/g9Fm5m8fBZxHVU24SmBkrM/pasted-image-1792701673972-w1t1zojr.jpeg';
@@ -27,14 +26,11 @@ export default function App() {
 
 function Portal() {
   const [step, setStep] = useState<1 | 2>(1);
-  const [creds, setCreds] = useState({ merchantId: '', passkey: '' });
+  const [merchantId, setMerchantId] = useState('');
   const [session, setSession] = useState<Session | null>(null);
-  const [menu, setMenu] = useState(false);
-  const [section, setSection] = useState<Section>('dashboard');
-  const [pending, setPending] = useState<Section | null>(null);
   const role = 'user' as const;
 
-  const logout = () => { setSession(null); setStep(1); setCreds({ merchantId: '', passkey: '' }); setSection('dashboard'); };
+  const logout = () => { setSession(null); setStep(1); setMerchantId(''); };
 
   const bg = (
     <div className="pointer-events-none fixed inset-0 -z-10">
@@ -47,19 +43,10 @@ function Portal() {
     return (
       <div className="min-h-screen">
         {bg}
-        <TopNav onMenu={() => setMenu(true)} onLogout={logout} />
-        <Sidebar open={menu} onClose={() => setMenu(false)} active={section} isAdmin={session.role === 'admin'}
-          onSelect={(s) => {
-            if (LOCKED.includes(s) && session.role !== 'admin') { setPending(s); return; }
-            setSection(s);
-          }} />
-        <AdminLoginDialog open={!!pending} onClose={() => setPending(null)}
-          onSuccess={() => { setSession({ ...session, role: 'admin' }); if (pending) setSection(pending); setPending(null); }} />
-        <div className="mx-auto max-w-5xl p-4 sm:p-8">
-          <div className="rounded-3xl bg-card/95 shadow-2xl backdrop-blur">
-            <SectionView section={section} session={session} onSelect={setSection} onQuit={logout} />
-          </div>
-        </div>
+        <TopNav onLogout={logout} />
+        <main className="px-4 py-10 sm:py-16">
+          <TemporaryError onLogout={logout} />
+        </main>
         <Toaster />
       </div>
     );
@@ -77,10 +64,10 @@ function Portal() {
         <div className="rounded-3xl border border-white/20 bg-card/95 p-6 shadow-2xl backdrop-blur-xl sm:p-10">
           <Stepper step={step} />
           {step === 1 ? (
-            <LoginStepOne onContinue={(merchantId, passkey) => { setCreds({ merchantId, passkey }); setStep(2); }} />
+            <LoginStepOne onContinue={(id) => { setMerchantId(id); setStep(2); }} />
           ) : (
-            <LoginStepTwo merchantId={creds.merchantId} passkey={creds.passkey} role={role}
-              onDone={(email) => setSession({ merchantId: creds.merchantId, email, role })} />
+            <LoginStepTwo merchantId={merchantId} role={role}
+              onDone={(email) => setSession({ merchantId, email, role })} />
           )}
           {step === 1 && <SignInGuide />}
         </div>
