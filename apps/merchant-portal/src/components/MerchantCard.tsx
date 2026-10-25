@@ -4,7 +4,7 @@ import { Globe, MapPin, Phone, Building2 } from 'lucide-react';
 
 const MAPS = 'https://maps.google.com/maps/place//data=!4m2!3m1!1s0x304ac5c47c1e91ed:0x865f1174ab57e5f7?entry=s&sa=X&ved=2ahUKEwiGg9XRkc6XAxWf1DgGHTGcAosQ4kB6BAgEEAA&hl=en';
 
-export default function MerchantCard({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
+export default function MerchantCard({ onBack, onContinue, continueLabel = 'Continue' }: { onBack: () => void; onContinue: () => void; continueLabel?: string }) {
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
       className="mt-6 overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-md)]">
@@ -39,7 +39,7 @@ export default function MerchantCard({ onBack, onContinue }: { onBack: () => voi
         </div>
         <div className="flex justify-between gap-3 p-5">
           <Button variant="outline" onClick={onBack}>Go back</Button>
-          <Button onClick={onContinue}>Continue</Button>
+          <Button onClick={onContinue}>{continueLabel}</Button>
         </div>
       </div>
     </motion.div>
