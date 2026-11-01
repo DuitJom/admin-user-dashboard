@@ -1,17 +1,33 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AlertCircle, ArrowRight, Eye, EyeOff, IdCard, KeyRound, Loader2, Search } from 'lucide-react';
+import { AlertCircle, ArrowRight, Eye, EyeOff, IdCard, KeyRound, Search } from 'lucide-react';
 import { Input } from '@project/components/ui/input';
 import { Label } from '@project/components/ui/label';
-import { Button } from '@project/components/ui/button';
 import { verifyMerchant } from 'zitejs/api';
 import MerchantCard from './MerchantCard';
+import ProgressButton, { Stage } from './ProgressButton';
 import { LiveCheck } from './icons';
 
 type Phase = 'id' | 'company' | 'passkey';
 
 const ID_ERROR = 'Please enter a valid Merchant ID to continue.';
 const KEY_ERROR = 'The passkey you entered is incorrect.';
+
+const FIND_STAGES: Stage[] = [
+  { at: 0, text: 'Please wait…' },
+  { at: 1500, text: 'Searching for a match…' },
+  { at: 3000, text: 'Getting closer…' },
+  { at: 4500, text: 'Checking merchant details…' },
+  { at: 6000, text: 'Verifying merchant record…' },
+  { at: 9000, text: 'Preparing results…' },
+];
+
+const KEY_STAGES: Stage[] = [
+  { at: 0, text: 'Please wait…' },
+  { at: 2000, text: 'Checking your passkey…' },
+  { at: 4000, text: 'Verifying credentials…' },
+  { at: 6000, text: 'Securing your session…' },
+];
 
 function ErrorBox({ message }: { message: string }) {
   return (
@@ -27,48 +43,30 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
   const [passkey, setPasskey] = useState('');
   const [show, setShow] = useState(false);
   const [phase, setPhase] = useState<Phase>('id');
-  const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
   const [error, setError] = useState('');
 
-  // Step 1: verify Merchant ID only, show 7s spinner, then reveal company record.
-  const find = async () => {
-    setLoading(true);
-    setError('');
+  const verifyId = async () => {
     try {
-      const [res] = await Promise.all([
-        verifyMerchant({ merchantId }),
-        new Promise((r) => setTimeout(r, 7000)),
-      ]);
-      if (!res.valid) { setError(ID_ERROR); return; }
-      setToast(true);
-      setTimeout(() => setToast(false), 2000);
-      setPhase('company');
+      const res = await verifyMerchant({ merchantId });
+      return { ok: res.valid, error: ID_ERROR };
     } catch {
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
+      return { ok: false, error: 'Something went wrong. Please try again.' };
     }
   };
 
-  // Step 2: after the passkey field appears, verify id + passkey together.
   const verifyKey = async () => {
-    setLoading(true);
-    setError('');
     try {
       const res = await verifyMerchant({ merchantId, passkey });
-      if (!res.valid) { setError(KEY_ERROR); return; }
-      onContinue(merchantId, passkey);
+      return { ok: res.valid, error: KEY_ERROR };
     } catch {
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
+      return { ok: false, error: 'Something went wrong. Please try again.' };
     }
   };
 
   const reset = () => { setMerchantId(''); setPasskey(''); setPhase('id'); setError(''); };
-  const canFind = merchantId.trim().length > 0 && !loading;
-  const canVerify = passkey.length > 0 && !loading;
+  const canFind = merchantId.trim().length > 0;
+  const canVerify = passkey.length > 0;
 
   return (
     <div>
@@ -84,22 +82,19 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
           <Label htmlFor="merchant-id">MERCHANT ID*</Label>
           <div className="flex h-12 items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring">
             <IdCard className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
-            <Input id="merchant-id" value={merchantId} onChange={(e) => { setMerchantId(e.target.value); setError(''); }} disabled={loading || phase !== 'id'}
-              onKeyDown={(e) => e.key === 'Enter' && canFind && find()}
+            <Input id="merchant-id" value={merchantId} onChange={(e) => { setMerchantId(e.target.value); setError(''); }} disabled={phase !== 'id'}
               className="h-full min-w-0 flex-1 rounded-none border-0 bg-transparent px-0 font-mono text-slate-900 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0" aria-invalid={!!error} />
           </div>
         </div>
 
-        {/* Passkey only appears once the merchant has pressed "Teruskan" on the company record */}
         <AnimatePresence>
           {phase === 'passkey' && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-1.5 overflow-hidden">
               <Label htmlFor="merchant-passkey">PASSKEY*</Label>
               <div className="flex h-12 items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring">
                 <KeyRound className="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
-                <input id="merchant-passkey" autoFocus type={show ? 'text' : 'password'} value={passkey} disabled={loading}
+                <input id="merchant-passkey" autoFocus type={show ? 'text' : 'password'} value={passkey}
                   onChange={(e) => { setPasskey(e.target.value); setError(''); }}
-                  onKeyDown={(e) => e.key === 'Enter' && canVerify && verifyKey()}
                   className="h-full min-w-0 flex-1 bg-transparent font-mono text-slate-900 outline-none" />
                 <button type="button" onClick={() => setShow(!show)} className="shrink-0 text-gray-500 hover:text-gray-700" aria-label="Show/Hide">
                   {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -112,15 +107,31 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
         <AnimatePresence>{error && <ErrorBox message={error} />}</AnimatePresence>
 
         {phase === 'id' && (
-          <Button onClick={find} disabled={!canFind} className="h-12 w-full rounded-xl bg-green-600 text-base font-semibold text-white shadow-lg shadow-green-600/20 hover:bg-green-700">
-            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Searching merchant...</> : <><Search className="mr-2 h-4 w-4" /> Find</>}
-          </Button>
+          <ProgressButton
+            idle={<><Search className="mr-2 h-4 w-4" /> Find</>}
+            stages={FIND_STAGES}
+            durationMs={12000}
+            successText="Found!"
+            disabled={!canFind}
+            className="h-12 w-full rounded-xl bg-green-600 text-base font-semibold text-white shadow-lg shadow-green-600/20 hover:bg-green-700"
+            onVerify={verifyId}
+            onSuccess={() => { setToast(true); setTimeout(() => setToast(false), 2000); setPhase('company'); }}
+            onError={setError}
+          />
         )}
 
         {phase === 'passkey' && (
-          <Button onClick={verifyKey} disabled={!canVerify} className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-primary/20">
-            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying...</> : <><ArrowRight className="mr-2 h-4 w-4" /> Teruskan</>}
-          </Button>
+          <ProgressButton
+            idle={<><ArrowRight className="mr-2 h-4 w-4" /> Let&apos;s go</>}
+            stages={KEY_STAGES}
+            durationMs={10000}
+            successText="Access granted!"
+            disabled={!canVerify}
+            className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-primary/20"
+            onVerify={verifyKey}
+            onSuccess={() => onContinue(merchantId, passkey)}
+            onError={setError}
+          />
         )}
       </div>
 
@@ -135,9 +146,8 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
         )}
       </AnimatePresence>
 
-      {/* Company record shown after the spinner; pressing Teruskan reveals the passkey field */}
       {phase === 'company' && (
-        <MerchantCard onBack={reset} onContinue={() => { setPhase('passkey'); }} continueLabel="Teruskan" />
+        <MerchantCard onBack={reset} onContinue={() => setPhase('passkey')} continueLabel="Next step" />
       )}
     </div>
   );
