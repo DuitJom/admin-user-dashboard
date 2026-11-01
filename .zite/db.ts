@@ -12,8 +12,7 @@
 //     operators: contains, not, in, notIn, lt, lte, gt, gte
 //       `not: null` means "is set". An empty `in: []` matches nothing; an
 //       empty `notIn: []` applies no filter.
-//     sort is currently IGNORED here — it is stripped before the request.
-//       (it does work on zite.auth.findAllUsers). Order in SQL instead.
+//     sort: [{ field: "fieldName", direction: "asc" | "desc" }]
 //     limit defaults to 500, max 2000; offset is a row count (a number)
 //     a filter value of `undefined` is REJECTED (it would query unfiltered
 //       and match an arbitrary record). Check the value first.
@@ -60,6 +59,9 @@
 //   - Soft-deleted rows are excluded automatically — no WHERE deleted_at IS NULL
 //   - SELECT only — use .create/.update/.delete for writes
 //   - Load the "zite:sql" skill for full SQL reference (formulas, lookups, etc.)
+//
+// Link tables for zite.sql() JOINs (use these exact names):
+//   "DuitJomCrmDataSalesforceCrmData" — columns: "duitJomCrmDataId", "salesforceCrmDataId" (joins "DuitJom CRM Data" and "SALESFORCE CRM DATA")
 import { createTableClient, createSqlClient, createAuthClient } from 'zitejs/runtime';
 
 /** An attachment as returned when reading a record. */
@@ -95,6 +97,10 @@ export type DuitJomCrmDataRecordType = {
   merchantIdUser?: string;
   passkey?: string;
   ongoing?: boolean;
+  phoneField?: string;
+  /** Links to salesforceCrmData ("SALESFORCE CRM DATA"). "SALESFORCE CRM DATA" */
+  salesforceCrmData?: string | string[];
+  statusOnBoard?: boolean;
 };
 
 /** What you may write when creating or updating a record in the "DuitJom CRM Data" table. */
@@ -106,6 +112,9 @@ export type DuitJomCrmDataRecordInput = {
   merchantIdUser: string | null;
   passkey: string | null;
   ongoing: string | boolean | null;
+  phoneField: string | null;
+  salesforceCrmData: string | string[] | null;
+  statusOnBoard: string | boolean | null;
 };
 
 /** A record in the "Salesforcedatabase" table, as it is read back. */
@@ -132,6 +141,32 @@ export type SalesforcedatabaseRecordInput = {
   merchantIdUser2: string | number | null;
 };
 
+/** A record in the "SALESFORCE CRM DATA" table, as it is read back. */
+export type SalesforceCrmDataRecordType = {
+  id: string;
+  /** Primary field. "Name" */
+  name?: string;
+  notes?: string;
+  active?: boolean;
+  product?: string;
+  /** "Amount Financing". Value is a raw number; display as currency with symbol "RM ", 3 decimal places, format: local (e.g. 1,000,000.50) */
+  amountFinancing?: number;
+  confidentialDocument?: ZiteAttachment[];
+  /** Links to duitJomCrmData ("DuitJom CRM Data"). "lookup_confidential-document" */
+  lookupConfidentialDocument?: string | string[];
+};
+
+/** What you may write when creating or updating a record in the "SALESFORCE CRM DATA" table. */
+export type SalesforceCrmDataRecordInput = {
+  name: string | null;
+  notes: string | null;
+  active: string | boolean | null;
+  product: string | null;
+  amountFinancing: string | number | null;
+  confidentialDocument: ZiteAttachmentInput[] | ZiteAttachmentInput | null;
+  lookupConfidentialDocument: string | string[] | null;
+};
+
 export interface ZiteAuthUser {
   id: string;
   name: string;
@@ -144,6 +179,7 @@ export interface ZiteAuthUser {
 export const zite = {
   duitJomCrmData: createTableClient<DuitJomCrmDataRecordType, DuitJomCrmDataRecordInput>('DuitJomCrmData'), // "DuitJom CRM Data"
   salesforcedatabase: createTableClient<SalesforcedatabaseRecordType, SalesforcedatabaseRecordInput>('Salesforcedatabase'), // "Salesforcedatabase"
+  salesforceCrmData: createTableClient<SalesforceCrmDataRecordType, SalesforceCrmDataRecordInput>('SalesforceCrmData'), // "SALESFORCE CRM DATA"
   sql: createSqlClient(),
   auth: createAuthClient<ZiteAuthUser>(),
 };

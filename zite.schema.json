@@ -74,6 +74,38 @@
               "defaultValue": true
             }
           }
+        },
+        {
+          "id": "fj25Jzwe27P",
+          "sdkName": "phoneField",
+          "definition": {
+            "name": "Phone field",
+            "type": "phone_number",
+            "template": {}
+          }
+        },
+        {
+          "id": "fbcr88tgGfW",
+          "sdkName": "salesforceCrmData",
+          "definition": {
+            "name": "SALESFORCE CRM DATA",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t9KZ6NpYuME",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "f8QyD6qGUQJ"
+            }
+          }
+        },
+        {
+          "id": "f38KhFDsys8",
+          "sdkName": "statusOnBoard",
+          "definition": {
+            "name": "Status on Board",
+            "type": "checkbox",
+            "template": {}
+          }
         }
       ]
     },
@@ -140,6 +172,90 @@
             "template": {
               "numberFormat": "local",
               "decimalPlaces": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "t9KZ6NpYuME",
+      "sdkName": "salesforceCrmData",
+      "name": "SALESFORCE CRM DATA",
+      "primaryFieldId": "fsFKuZqSgtv",
+      "fields": [
+        {
+          "id": "fsFKuZqSgtv",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f6QJHhc6yrF",
+          "sdkName": "notes",
+          "definition": {
+            "name": "Notes",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fgsWhUGacRR",
+          "sdkName": "active",
+          "definition": {
+            "name": "Active",
+            "type": "checkbox",
+            "template": {}
+          }
+        },
+        {
+          "id": "f5EutTZxCF8",
+          "sdkName": "product",
+          "definition": {
+            "name": "PRODUCT",
+            "type": "single_select",
+            "template": {
+              "options": [],
+              "disableColors": false
+            }
+          }
+        },
+        {
+          "id": "fp5Rz4RDBe8",
+          "sdkName": "amountFinancing",
+          "definition": {
+            "name": "Amount Financing",
+            "type": "currency",
+            "template": {
+              "defaultValue": 10,
+              "numberFormat": "local",
+              "decimalPlaces": 3,
+              "currencySymbol": "RM "
+            }
+          }
+        },
+        {
+          "id": "f42FwjVrvyB",
+          "sdkName": "confidentialDocument",
+          "definition": {
+            "name": "confidential-document",
+            "type": "attachments",
+            "template": {}
+          }
+        },
+        {
+          "id": "f8QyD6qGUQJ",
+          "sdkName": "lookupConfidentialDocument",
+          "definition": {
+            "name": "lookup_confidential-document",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tjtJf22sBYN",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "fbcr88tgGfW"
             }
           }
         }
