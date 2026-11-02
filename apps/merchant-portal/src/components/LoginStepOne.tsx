@@ -43,12 +43,14 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
   const [passkey, setPasskey] = useState('');
   const [show, setShow] = useState(false);
   const [phase, setPhase] = useState<Phase>('id');
+  const [product, setProduct] = useState('');
   const [toast, setToast] = useState(false);
   const [error, setError] = useState('');
 
   const verifyId = async () => {
     try {
       const res = await verifyMerchant({ merchantId });
+      if (res.product) setProduct(res.product);
       return { ok: res.valid, error: ID_ERROR };
     } catch {
       return { ok: false, error: 'Something went wrong. Please try again.' };
@@ -64,7 +66,7 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
     }
   };
 
-  const reset = () => { setMerchantId(''); setPasskey(''); setPhase('id'); setError(''); };
+  const reset = () => { setMerchantId(''); setPasskey(''); setProduct(''); setPhase('id'); setError(''); };
   const canFind = merchantId.trim().length > 0;
   const canVerify = passkey.length > 0;
 
@@ -147,7 +149,7 @@ export default function LoginStepOne({ onContinue }: { onContinue: (merchantId: 
       </AnimatePresence>
 
       {phase === 'company' && (
-        <MerchantCard onBack={reset} onContinue={() => setPhase('passkey')} continueLabel="Next step" />
+        <MerchantCard product={product} onBack={reset} onContinue={() => setPhase('passkey')} continueLabel="Next step" />
       )}
     </div>
   );
