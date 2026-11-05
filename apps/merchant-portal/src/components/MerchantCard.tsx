@@ -35,7 +35,7 @@ export default function MerchantCard({ product, onBack, onContinue, continueLabe
       <InfoCard icon={Building2} label="Company" verified>
         <p className="font-bold">GETMORE RESOURCES SDN BHD</p>
         <p className="mt-1 flex items-center gap-1.5 text-muted-foreground"><Hash className="h-3.5 w-3.5" /> SSM: 202101021538 / 1421838-P</p>
-        <p className="mt-1 flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-muted-foreground" /> +60 16-534 9363</p>
+        <p className="mt-1 flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-muted-foreground" /> +604 2000 5402</p>
         <p className="mt-1 flex items-center gap-1.5"><Briefcase className="h-3.5 w-3.5 text-muted-foreground" /> Service: Financial Product</p>
       </InfoCard>
 
