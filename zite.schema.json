@@ -110,74 +110,6 @@
       ]
     },
     {
-      "id": "thLugKZVVSk",
-      "sdkName": "salesforcedatabase",
-      "name": "Salesforcedatabase",
-      "primaryFieldId": "fjamxgqzCV1",
-      "fields": [
-        {
-          "id": "fjamxgqzCV1",
-          "sdkName": "name",
-          "definition": {
-            "name": "Name",
-            "type": "single_line_text",
-            "template": {}
-          }
-        },
-        {
-          "id": "fhu6nuVkKGy",
-          "sdkName": "notes",
-          "definition": {
-            "name": "Notes",
-            "type": "long_text",
-            "template": {}
-          }
-        },
-        {
-          "id": "fkBzZfrtP9R",
-          "sdkName": "active",
-          "definition": {
-            "name": "Active",
-            "type": "checkbox",
-            "template": {}
-          }
-        },
-        {
-          "id": "fvYkHeTSSAC",
-          "sdkName": "httpsWwwDuitjomMy",
-          "definition": {
-            "name": "https://www.duitjom.my",
-            "type": "url",
-            "template": {}
-          }
-        },
-        {
-          "id": "fnH4JoXjgCJ",
-          "sdkName": "merchantIdUser",
-          "definition": {
-            "name": "Merchant ID User",
-            "type": "number",
-            "template": {
-              "numberFormat": "local",
-              "decimalPlaces": 2
-            }
-          }
-        },
-        {
-          "id": "fpGeLx1zMLX",
-          "sdkName": "merchantIdUser2",
-          "definition": {
-            "name": "Merchant ID User-",
-            "type": "number",
-            "template": {
-              "numberFormat": "local",
-              "decimalPlaces": 0
-            }
-          }
-        }
-      ]
-    },
-    {
       "id": "t9KZ6NpYuME",
       "sdkName": "salesforceCrmData",
       "name": "SALESFORCE CRM DATA",
@@ -256,6 +188,74 @@
               "isInverse": false,
               "allowMultiple": true,
               "inverseFieldId": "fbcr88tgGfW"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "thLugKZVVSk",
+      "sdkName": "salesforcedatabase",
+      "name": "Salesforcedatabase",
+      "primaryFieldId": "fjamxgqzCV1",
+      "fields": [
+        {
+          "id": "fjamxgqzCV1",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fhu6nuVkKGy",
+          "sdkName": "notes",
+          "definition": {
+            "name": "Notes",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fkBzZfrtP9R",
+          "sdkName": "active",
+          "definition": {
+            "name": "Active",
+            "type": "checkbox",
+            "template": {}
+          }
+        },
+        {
+          "id": "fvYkHeTSSAC",
+          "sdkName": "httpsWwwDuitjomMy",
+          "definition": {
+            "name": "https://www.duitjom.my",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "fnH4JoXjgCJ",
+          "sdkName": "merchantIdUser",
+          "definition": {
+            "name": "Merchant ID User",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 2
+            }
+          }
+        },
+        {
+          "id": "fpGeLx1zMLX",
+          "sdkName": "merchantIdUser2",
+          "definition": {
+            "name": "Merchant ID User-",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 0
             }
           }
         }

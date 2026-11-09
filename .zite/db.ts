@@ -117,30 +117,6 @@ export type DuitJomCrmDataRecordInput = {
   statusOnBoard: string | boolean | null;
 };
 
-/** A record in the "Salesforcedatabase" table, as it is read back. */
-export type SalesforcedatabaseRecordType = {
-  id: string;
-  /** Primary field. "Name" */
-  name?: string;
-  notes?: string;
-  active?: boolean;
-  httpsWwwDuitjomMy?: string;
-  /** "Merchant ID User". 2 decimal places, format: local (e.g. 1,000,000.50) */
-  merchantIdUser?: number;
-  /** "Merchant ID User-". 0 decimal places, format: local (e.g. 1,000,000.50) */
-  merchantIdUser2?: number;
-};
-
-/** What you may write when creating or updating a record in the "Salesforcedatabase" table. */
-export type SalesforcedatabaseRecordInput = {
-  name: string | null;
-  notes: string | null;
-  active: string | boolean | null;
-  httpsWwwDuitjomMy: string | null;
-  merchantIdUser: string | number | null;
-  merchantIdUser2: string | number | null;
-};
-
 /** A record in the "SALESFORCE CRM DATA" table, as it is read back. */
 export type SalesforceCrmDataRecordType = {
   id: string;
@@ -165,6 +141,30 @@ export type SalesforceCrmDataRecordInput = {
   amountFinancing: string | number | null;
   confidentialDocument: ZiteAttachmentInput[] | ZiteAttachmentInput | null;
   lookupConfidentialDocument: string | string[] | null;
+};
+
+/** A record in the "Salesforcedatabase" table, as it is read back. */
+export type SalesforcedatabaseRecordType = {
+  id: string;
+  /** Primary field. "Name" */
+  name?: string;
+  notes?: string;
+  active?: boolean;
+  httpsWwwDuitjomMy?: string;
+  /** "Merchant ID User". 2 decimal places, format: local (e.g. 1,000,000.50) */
+  merchantIdUser?: number;
+  /** "Merchant ID User-". 0 decimal places, format: local (e.g. 1,000,000.50) */
+  merchantIdUser2?: number;
+};
+
+/** What you may write when creating or updating a record in the "Salesforcedatabase" table. */
+export type SalesforcedatabaseRecordInput = {
+  name: string | null;
+  notes: string | null;
+  active: string | boolean | null;
+  httpsWwwDuitjomMy: string | null;
+  merchantIdUser: string | number | null;
+  merchantIdUser2: string | number | null;
 };
 
 /** A record in the "Refund Records" table, as it is read back. */
@@ -207,8 +207,8 @@ export interface ZiteAuthUser {
 
 export const zite = {
   duitJomCrmData: createTableClient<DuitJomCrmDataRecordType, DuitJomCrmDataRecordInput>('DuitJomCrmData'), // "DuitJom CRM Data"
-  salesforcedatabase: createTableClient<SalesforcedatabaseRecordType, SalesforcedatabaseRecordInput>('Salesforcedatabase'), // "Salesforcedatabase"
   salesforceCrmData: createTableClient<SalesforceCrmDataRecordType, SalesforceCrmDataRecordInput>('SalesforceCrmData'), // "SALESFORCE CRM DATA"
+  salesforcedatabase: createTableClient<SalesforcedatabaseRecordType, SalesforcedatabaseRecordInput>('Salesforcedatabase'), // "Salesforcedatabase"
   refundRecords: createTableClient<RefundRecordsRecordType, RefundRecordsRecordInput>('RefundRecords'), // "Refund Records"
   sql: createSqlClient(),
   auth: createAuthClient<ZiteAuthUser>(),
