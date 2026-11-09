@@ -260,6 +260,123 @@
           }
         }
       ]
+    },
+    {
+      "id": "trAmFFQdAN8",
+      "sdkName": "refundRecords",
+      "name": "Refund Records",
+      "primaryFieldId": "fvHB7q5bHwH",
+      "fields": [
+        {
+          "id": "fvHB7q5bHwH",
+          "sdkName": "fullName",
+          "definition": {
+            "name": "Full Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f5Rmc4zmTQf",
+          "sdkName": "avatar",
+          "definition": {
+            "name": "Avatar",
+            "type": "attachments",
+            "template": {}
+          }
+        },
+        {
+          "id": "fhDazRKM6pQ",
+          "sdkName": "dateTime",
+          "definition": {
+            "name": "Date & Time",
+            "type": "datetime",
+            "template": {
+              "timezone": "",
+              "dateFormat": "european",
+              "timeFormat": "24h",
+              "displayTimeZone": false
+            }
+          }
+        },
+        {
+          "id": "fpH4kdMTuDD",
+          "sdkName": "myKad",
+          "definition": {
+            "name": "MyKad",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fjCgjkEd9Ur",
+          "sdkName": "amountRefund",
+          "definition": {
+            "name": "Amount Refund",
+            "type": "currency",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 2,
+              "currencySymbol": "RM"
+            }
+          }
+        },
+        {
+          "id": "fbeuJkWuXcc",
+          "sdkName": "bankAccNo",
+          "definition": {
+            "name": "Bank / Acc No.",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "frbjdEENysE",
+          "sdkName": "rm",
+          "definition": {
+            "name": "RM",
+            "type": "currency",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 2,
+              "currencySymbol": "RM"
+            }
+          }
+        },
+        {
+          "id": "f7iuYnWvAFa",
+          "sdkName": "status",
+          "definition": {
+            "name": "Status",
+            "type": "single_select",
+            "template": {
+              "options": [
+                {
+                  "value": "5Vhk",
+                  "label": "Pending",
+                  "color": "yellow"
+                },
+                {
+                  "value": "asAU",
+                  "label": "Processing",
+                  "color": "blue"
+                },
+                {
+                  "value": "9wLs",
+                  "label": "Approved",
+                  "color": "green"
+                },
+                {
+                  "value": "joAp",
+                  "label": "Rejected",
+                  "color": "red"
+                }
+              ],
+              "disableColors": false
+            }
+          }
+        }
+      ]
     }
   ]
 }

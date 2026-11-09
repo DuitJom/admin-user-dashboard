@@ -167,6 +167,35 @@ export type SalesforceCrmDataRecordInput = {
   lookupConfidentialDocument: string | string[] | null;
 };
 
+/** A record in the "Refund Records" table, as it is read back. */
+export type RefundRecordsRecordType = {
+  id: string;
+  /** Primary field. "Full Name" */
+  fullName?: string;
+  avatar?: ZiteAttachment[];
+  /** "Date & Time". Date+time field (ISO 8601 timestamp), null when unset, date: "european" format (e.g. 15/01/2024), time: 24h */
+  dateTime?: string;
+  myKad?: string;
+  /** "Amount Refund". Value is a raw number; display as currency with symbol "RM", 2 decimal places, format: local (e.g. 1,000,000.50) */
+  amountRefund?: number;
+  bankAccNo?: string;
+  /** "RM". Value is a raw number; display as currency with symbol "RM", 2 decimal places, format: local (e.g. 1,000,000.50) */
+  rm?: number;
+  status?: "Pending" | "Processing" | "Approved" | "Rejected" | string;
+};
+
+/** What you may write when creating or updating a record in the "Refund Records" table. */
+export type RefundRecordsRecordInput = {
+  fullName: string | null;
+  avatar: ZiteAttachmentInput[] | ZiteAttachmentInput | null;
+  dateTime: string | Date | null;
+  myKad: string | null;
+  amountRefund: string | number | null;
+  bankAccNo: string | null;
+  rm: string | number | null;
+  status: "Pending" | "Processing" | "Approved" | "Rejected" | string | null;
+};
+
 export interface ZiteAuthUser {
   id: string;
   name: string;
@@ -180,6 +209,7 @@ export const zite = {
   duitJomCrmData: createTableClient<DuitJomCrmDataRecordType, DuitJomCrmDataRecordInput>('DuitJomCrmData'), // "DuitJom CRM Data"
   salesforcedatabase: createTableClient<SalesforcedatabaseRecordType, SalesforcedatabaseRecordInput>('Salesforcedatabase'), // "Salesforcedatabase"
   salesforceCrmData: createTableClient<SalesforceCrmDataRecordType, SalesforceCrmDataRecordInput>('SalesforceCrmData'), // "SALESFORCE CRM DATA"
+  refundRecords: createTableClient<RefundRecordsRecordType, RefundRecordsRecordInput>('RefundRecords'), // "Refund Records"
   sql: createSqlClient(),
   auth: createAuthClient<ZiteAuthUser>(),
 };
