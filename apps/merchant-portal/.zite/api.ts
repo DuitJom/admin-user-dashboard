@@ -9,6 +9,8 @@ import type { default as _ListRefundsEp } from '../src/api/listRefunds';
 import type { default as _RequestReportEp } from '../src/api/requestReport';
 import type { default as _SaveRefundEp } from '../src/api/saveRefund';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
+import type { default as _SetAccountPasswordEp } from '../src/api/setAccountPassword';
+import type { default as _VerifyAccountPasswordEp } from '../src/api/verifyAccountPassword';
 import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
 
@@ -47,6 +49,16 @@ export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputS
 export type SendRegistrationOutputType = Awaited<ReturnType<_SendRegistrationCfg['execute']>>;
 export const sendRegistration = createCaller<SendRegistrationInputType, SendRegistrationOutputType>('sendRegistration');
 
+type _SetAccountPasswordCfg = typeof _SetAccountPasswordEp;
+export type SetAccountPasswordInputType = NonNullable<_SetAccountPasswordCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SetAccountPasswordCfg['execute']>[0]['input'];
+export type SetAccountPasswordOutputType = Awaited<ReturnType<_SetAccountPasswordCfg['execute']>>;
+export const setAccountPassword = createCaller<SetAccountPasswordInputType, SetAccountPasswordOutputType>('setAccountPassword');
+
+type _VerifyAccountPasswordCfg = typeof _VerifyAccountPasswordEp;
+export type VerifyAccountPasswordInputType = NonNullable<_VerifyAccountPasswordCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAccountPasswordCfg['execute']>[0]['input'];
+export type VerifyAccountPasswordOutputType = Awaited<ReturnType<_VerifyAccountPasswordCfg['execute']>>;
+export const verifyAccountPassword = createCaller<VerifyAccountPasswordInputType, VerifyAccountPasswordOutputType>('verifyAccountPassword');
+
 type _VerifyAdminCfg = typeof _VerifyAdminEp;
 export type VerifyAdminInputType = NonNullable<_VerifyAdminCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAdminCfg['execute']>[0]['input'];
 export type VerifyAdminOutputType = Awaited<ReturnType<_VerifyAdminCfg['execute']>>;
@@ -66,6 +78,8 @@ export const api = {
   requestReport,
   saveRefund,
   sendRegistration,
+  setAccountPassword,
+  verifyAccountPassword,
   verifyAdmin,
   verifyMerchant,
 };

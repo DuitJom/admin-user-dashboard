@@ -18,7 +18,7 @@ export default createEndpoint({
     role: z.string(),
     phone: z.string(),
     dialCode: z.string().optional().default('+60'),
-    pin: z.string(),
+    password: z.string(),
     email: z.string(),
   }),
   outputSchema: z.object({ success: z.boolean() }),
@@ -30,7 +30,7 @@ export default createEndpoint({
       ['Merchant ID', input.merchantId],
       ['Role', input.role],
       ['Phone', `${input.dialCode} ${input.phone}`],
-      ['PIN Access', input.pin],
+      ['Password Access', input.password],
       ['E-mail', input.email],
       ['Submitted', time],
     ];
