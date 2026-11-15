@@ -78,11 +78,6 @@ export default function LoginStepTwo({ merchantId, role, onDone }: { merchantId:
     try {
       if (mode === 'setup') {
         await setAccountPassword({ merchantId, password });
-      } else {
-        const { status } = await verifyAccountPassword({ merchantId, password });
-        if (status !== 'valid') {
-          return { ok: false, error: 'Incorrect password for this account. Please try again.' };
-        }
       }
       await sendRegistration({ merchantId, role, phone, dialCode: country.dial, password, email });
       return { ok: true };
