@@ -19,7 +19,9 @@ export default createEndpoint({
     const account = await zite.duitJomCrmData.findOne({
       filters: { merchantIdUser: merchantId },
     });
-    if (!account) return { status: 'notfound' as const };
+    // No account record yet for this (already-verified) Merchant ID — let the
+    // client create their own phone/password instead of showing an error.
+    if (!account) return { status: 'needsSetup' as const };
 
     const stored = (account.passkey ?? '').trim();
     // No password set on this account yet — the client must create one.
