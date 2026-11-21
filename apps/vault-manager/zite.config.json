@@ -1,8 +1,20 @@
 {
-  "accessMode": "internal",
+  "accessMode": "external",
   "brandKitId": "bk_qw4x2snkMc",
   "brandKitThemeHash": "boyq7k",
   "id": "12wlu7de2z",
+  "authentication": {
+    "signup": "open",
+    "authenticationMethods": {
+      "emailSignIn": true,
+      "googleSignIn": true,
+      "sso": false
+    }
+  },
+  "seoSettings": {
+    "title": "BlackVault — Pengurus Kata Laluan",
+    "description": "Simpan kata laluan, kad dan nota selamat anda dalam satu vault yang disulitkan."
+  },
   "envVars": {
     "ZITE_ADMIN_PASSWORD": {
       "description": "Admin password for unlocking Database, Record, Security and Settings menus"
