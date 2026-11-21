@@ -1,0 +1,14 @@
+{
+  "accessMode": "internal",
+  "brandKitId": "bk_qw4x2snkMc",
+  "brandKitThemeHash": "boyq7k",
+  "id": "12wlu7de2z",
+  "envVars": {
+    "ZITE_ADMIN_PASSWORD": {
+      "description": "Admin password for unlocking Database, Record, Security and Settings menus"
+    },
+    "ZITE_ADMIN_USERNAME": {
+      "description": "Admin username for unlocking Database, Record, Security and Settings menus"
+    }
+  }
+}
