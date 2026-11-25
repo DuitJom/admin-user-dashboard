@@ -7,6 +7,7 @@ import type { default as _FindMerchantEp } from '../src/api/findMerchant';
 import type { default as _RequestReportEp } from '../src/api/requestReport';
 import type { default as _SaveRefundEp } from '../src/api/saveRefund';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
+import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
 
 type _CheckDashboardAvailabilityCfg = typeof _CheckDashboardAvailabilityEp;
@@ -34,6 +35,11 @@ export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputS
 export type SendRegistrationOutputType = Awaited<ReturnType<_SendRegistrationCfg['execute']>>;
 export const sendRegistration = createCaller<SendRegistrationInputType, SendRegistrationOutputType>('sendRegistration');
 
+type _VerifyAdminCfg = typeof _VerifyAdminEp;
+export type VerifyAdminInputType = NonNullable<_VerifyAdminCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAdminCfg['execute']>[0]['input'];
+export type VerifyAdminOutputType = Awaited<ReturnType<_VerifyAdminCfg['execute']>>;
+export const verifyAdmin = createCaller<VerifyAdminInputType, VerifyAdminOutputType>('verifyAdmin');
+
 type _VerifyMerchantCfg = typeof _VerifyMerchantEp;
 export type VerifyMerchantInputType = NonNullable<_VerifyMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyMerchantCfg['execute']>[0]['input'];
 export type VerifyMerchantOutputType = Awaited<ReturnType<_VerifyMerchantCfg['execute']>>;
@@ -46,5 +52,6 @@ export const api = {
   requestReport,
   saveRefund,
   sendRegistration,
+  verifyAdmin,
   verifyMerchant,
 };
