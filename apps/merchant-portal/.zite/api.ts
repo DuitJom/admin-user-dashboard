@@ -5,7 +5,6 @@ import { createCaller } from 'zitejs/caller';
 import type { default as _CheckDashboardAvailabilityEp } from '../src/api/checkDashboardAvailability';
 import type { default as _FindMerchantEp } from '../src/api/findMerchant';
 import type { default as _RequestReportEp } from '../src/api/requestReport';
-import type { default as _SaveRefundEp } from '../src/api/saveRefund';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
 import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
@@ -24,11 +23,6 @@ type _RequestReportCfg = typeof _RequestReportEp;
 export type RequestReportInputType = NonNullable<_RequestReportCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_RequestReportCfg['execute']>[0]['input'];
 export type RequestReportOutputType = Awaited<ReturnType<_RequestReportCfg['execute']>>;
 export const requestReport = createCaller<RequestReportInputType, RequestReportOutputType>('requestReport');
-
-type _SaveRefundCfg = typeof _SaveRefundEp;
-export type SaveRefundInputType = NonNullable<_SaveRefundCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SaveRefundCfg['execute']>[0]['input'];
-export type SaveRefundOutputType = Awaited<ReturnType<_SaveRefundCfg['execute']>>;
-export const saveRefund = createCaller<SaveRefundInputType, SaveRefundOutputType>('saveRefund');
 
 type _SendRegistrationCfg = typeof _SendRegistrationEp;
 export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SendRegistrationCfg['execute']>[0]['input'];
@@ -50,7 +44,6 @@ export const api = {
   checkDashboardAvailability,
   findMerchant,
   requestReport,
-  saveRefund,
   sendRegistration,
   verifyAdmin,
   verifyMerchant,
