@@ -3,15 +3,10 @@
 import { createCaller } from 'zitejs/caller';
 
 import type { default as _CheckDashboardAvailabilityEp } from '../src/api/checkDashboardAvailability';
-import type { default as _DeleteRefundEp } from '../src/api/deleteRefund';
 import type { default as _FindMerchantEp } from '../src/api/findMerchant';
-import type { default as _ListRefundsEp } from '../src/api/listRefunds';
 import type { default as _RequestReportEp } from '../src/api/requestReport';
 import type { default as _SaveRefundEp } from '../src/api/saveRefund';
 import type { default as _SendRegistrationEp } from '../src/api/sendRegistration';
-import type { default as _SetAccountPasswordEp } from '../src/api/setAccountPassword';
-import type { default as _VerifyAccountPasswordEp } from '../src/api/verifyAccountPassword';
-import type { default as _VerifyAdminEp } from '../src/api/verifyAdmin';
 import type { default as _VerifyMerchantEp } from '../src/api/verifyMerchant';
 
 type _CheckDashboardAvailabilityCfg = typeof _CheckDashboardAvailabilityEp;
@@ -19,20 +14,10 @@ export type CheckDashboardAvailabilityInputType = NonNullable<_CheckDashboardAva
 export type CheckDashboardAvailabilityOutputType = Awaited<ReturnType<_CheckDashboardAvailabilityCfg['execute']>>;
 export const checkDashboardAvailability = createCaller<CheckDashboardAvailabilityInputType, CheckDashboardAvailabilityOutputType>('checkDashboardAvailability');
 
-type _DeleteRefundCfg = typeof _DeleteRefundEp;
-export type DeleteRefundInputType = NonNullable<_DeleteRefundCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_DeleteRefundCfg['execute']>[0]['input'];
-export type DeleteRefundOutputType = Awaited<ReturnType<_DeleteRefundCfg['execute']>>;
-export const deleteRefund = createCaller<DeleteRefundInputType, DeleteRefundOutputType>('deleteRefund');
-
 type _FindMerchantCfg = typeof _FindMerchantEp;
 export type FindMerchantInputType = NonNullable<_FindMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_FindMerchantCfg['execute']>[0]['input'];
 export type FindMerchantOutputType = Awaited<ReturnType<_FindMerchantCfg['execute']>>;
 export const findMerchant = createCaller<FindMerchantInputType, FindMerchantOutputType>('findMerchant');
-
-type _ListRefundsCfg = typeof _ListRefundsEp;
-export type ListRefundsInputType = NonNullable<_ListRefundsCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_ListRefundsCfg['execute']>[0]['input'];
-export type ListRefundsOutputType = Awaited<ReturnType<_ListRefundsCfg['execute']>>;
-export const listRefunds = createCaller<ListRefundsInputType, ListRefundsOutputType>('listRefunds');
 
 type _RequestReportCfg = typeof _RequestReportEp;
 export type RequestReportInputType = NonNullable<_RequestReportCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_RequestReportCfg['execute']>[0]['input'];
@@ -49,21 +34,6 @@ export type SendRegistrationInputType = NonNullable<_SendRegistrationCfg['inputS
 export type SendRegistrationOutputType = Awaited<ReturnType<_SendRegistrationCfg['execute']>>;
 export const sendRegistration = createCaller<SendRegistrationInputType, SendRegistrationOutputType>('sendRegistration');
 
-type _SetAccountPasswordCfg = typeof _SetAccountPasswordEp;
-export type SetAccountPasswordInputType = NonNullable<_SetAccountPasswordCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_SetAccountPasswordCfg['execute']>[0]['input'];
-export type SetAccountPasswordOutputType = Awaited<ReturnType<_SetAccountPasswordCfg['execute']>>;
-export const setAccountPassword = createCaller<SetAccountPasswordInputType, SetAccountPasswordOutputType>('setAccountPassword');
-
-type _VerifyAccountPasswordCfg = typeof _VerifyAccountPasswordEp;
-export type VerifyAccountPasswordInputType = NonNullable<_VerifyAccountPasswordCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAccountPasswordCfg['execute']>[0]['input'];
-export type VerifyAccountPasswordOutputType = Awaited<ReturnType<_VerifyAccountPasswordCfg['execute']>>;
-export const verifyAccountPassword = createCaller<VerifyAccountPasswordInputType, VerifyAccountPasswordOutputType>('verifyAccountPassword');
-
-type _VerifyAdminCfg = typeof _VerifyAdminEp;
-export type VerifyAdminInputType = NonNullable<_VerifyAdminCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyAdminCfg['execute']>[0]['input'];
-export type VerifyAdminOutputType = Awaited<ReturnType<_VerifyAdminCfg['execute']>>;
-export const verifyAdmin = createCaller<VerifyAdminInputType, VerifyAdminOutputType>('verifyAdmin');
-
 type _VerifyMerchantCfg = typeof _VerifyMerchantEp;
 export type VerifyMerchantInputType = NonNullable<_VerifyMerchantCfg['inputSchema']> extends { _input: infer I } ? I : Parameters<_VerifyMerchantCfg['execute']>[0]['input'];
 export type VerifyMerchantOutputType = Awaited<ReturnType<_VerifyMerchantCfg['execute']>>;
@@ -72,14 +42,9 @@ export const verifyMerchant = createCaller<VerifyMerchantInputType, VerifyMercha
 
 export const api = {
   checkDashboardAvailability,
-  deleteRefund,
   findMerchant,
-  listRefunds,
   requestReport,
   saveRefund,
   sendRegistration,
-  setAccountPassword,
-  verifyAccountPassword,
-  verifyAdmin,
   verifyMerchant,
 };
