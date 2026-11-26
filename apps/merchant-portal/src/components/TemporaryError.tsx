@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Loader2, LogOut, RefreshCw, ServerCog } from 'lucide-react';
+import { Loader2, LogOut, RefreshCw } from 'lucide-react';
 import { checkDashboardAvailability } from 'zitejs/api';
 import { Button } from '@project/components/ui/button';
 
@@ -27,11 +27,26 @@ export default function TemporaryError({ onLogout }: { onLogout: () => void }) {
     <div className="flex min-h-[80vh] items-center justify-center bg-gradient-to-b from-[#0a1733] via-[#0b1c3f] to-[#060f24] px-4 py-12">
       <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md rounded-3xl bg-white p-7 text-center shadow-2xl sm:p-9">
-        <motion.div
-          initial={{ scale: 0.9 }} animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-50 text-amber-500 ring-8 ring-amber-50/60">
-          <ServerCog className="h-10 w-10" aria-hidden="true" />
-        </motion.div>
+        <div className="relative mx-auto w-fit">
+          <motion.img
+            src="https://images.fillout.com/902182/obvwexdqqo/generated-images/vMAaL5zGPbaRb4imNoRF4s/img_lPJn_nKKLbn5GAMH.jpg"
+            alt="Sad Salesforce mascot"
+            animate={{ y: [0, -4, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="mx-auto h-44 w-44 rounded-full object-cover ring-8 ring-sky-50"
+          />
+          <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }}
+            className="absolute -right-10 top-2 rounded-2xl rounded-bl-none bg-sky-600 px-3 py-1.5 text-sm font-extrabold text-white shadow-lg">
+            Hmmm!
+          </motion.div>
+        </div>
+        <div className="mt-5 rounded-2xl border border-sky-100 bg-sky-50 p-4 text-left text-sm leading-6 text-slate-700">
+          <p className="font-semibold text-slate-900">Dear valued merchant,</p>
+          <p className="mt-1">
+            We sincerely apologize — our system is currently being upgraded to improve Salesforce&apos;s internal quality.
+            Please try again shortly or contact us at{' '}
+            <a href="mailto:general@account.salesforce.com" className="font-semibold text-sky-700 hover:underline">general@account.salesforce.com</a>.
+          </p>
+        </div>
 
         <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-amber-700">
           <span className="relative flex h-2 w-2">
