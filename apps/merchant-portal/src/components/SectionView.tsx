@@ -36,7 +36,7 @@ export default function SectionView({ section, session, onSelect, onQuit }: { se
     case 'creditor':
     case 'records':
     case 'database':
-      body = <MerchantCard product="RCASH" onBack={() => onSelect('dashboard')} onContinue={() => toast.success('Record opened')} />;
+      body = <MerchantCard onBack={() => onSelect('dashboard')} onContinue={() => toast.success('Record opened')} />;
       break;
     case 'contact':
       body = <Contact />;

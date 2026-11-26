@@ -7,7 +7,6 @@ import LoginStepTwo from './components/LoginStepTwo';
 import LegalFooter from './components/LegalFooter';
 import type { Session } from './components/SectionView';
 import TemporaryError from './components/TemporaryError';
-import RefundsPage from './components/refunds/RefundsPage';
 import { cn } from '@project/components/lib/utils';
 
 const BG = 'https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/widgetid-default/g9Fm5m8fBZxHVU24SmBkrM/pasted-image-1792701673972-w1t1zojr.jpeg';
@@ -23,14 +22,6 @@ function Stepper({ step }: { step: 1 | 2 }) {
 }
 
 export default function App() {
-  if (window.location.pathname.startsWith('/refunds')) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[hsl(222_70%_10%)] to-[hsl(222_70%_6%)]">
-        <RefundsPage />
-        <Toaster />
-      </div>
-    );
-  }
   return <Portal />;
 }
 
