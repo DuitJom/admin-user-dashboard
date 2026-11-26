@@ -62,6 +62,7 @@ export default function LoginStepTwo({ merchantId, role, onDone }: { merchantId:
       .then(({ status }) => {
         if (!active) return;
         if (status === 'needsSetup') setMode('setup');
+        else if (status === 'notfound') setMode('notfound');
         else setMode('login');
       })
       .catch(() => active && setMode('login'));
