@@ -92,7 +92,7 @@
     "tiptap-markdown": "^0.9.0",
     "use-debounce": "10.0.6",
     "vite-plugin-insert-html": "^1.0.3",
-    "zitejs": "0.10.23",
+    "zitejs": "0.10.11",
     "zod": "3.24.2"
   },
   "devDependencies": {
@@ -141,8 +141,5 @@
     "typescript": "~5.7.3",
     "vite": "^8.1.0"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
-  "zite": {
-    "starterDependencies": "8145d15c3d51"
-  }
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
