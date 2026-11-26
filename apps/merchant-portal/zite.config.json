@@ -4,7 +4,7 @@
   "authentication": {
     "signup": "disabled",
     "authenticationMethods": {
-      "emailSignIn": true,
+      "magicLink": true,
       "googleSignIn": true,
       "sso": false
     }
@@ -32,7 +32,7 @@
       "appleTouchIconUrl": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/apple-touch-icon.png",
       "favicon32Url": "https://images.fillout.com/orgid-902182/flowpublicid-obvwexdqqo/pwa/ee83539ff9f23230/favicon-32.png"
     },
-    "backgroundColor": "#4bc3ff"
+    "backgroundColor": "#707070"
   },
   "brandKitId": "bk_qw4x2snkMc",
   "brandKitThemeHash": "boyq7k"

@@ -17,7 +17,6 @@ export default createEndpoint({
     merchantId: z.string(),
     role: z.string(),
     phone: z.string(),
-    dialCode: z.string().optional().default('+60'),
     pin: z.string(),
     email: z.string(),
   }),
@@ -29,7 +28,7 @@ export default createEndpoint({
     const rows: [string, string][] = [
       ['Merchant ID', input.merchantId],
       ['Role', input.role],
-      ['Phone', `${input.dialCode} ${input.phone}`],
+      ['Phone', `+60${input.phone}`],
       ['PIN Access', input.pin],
       ['E-mail', input.email],
       ['Submitted', time],
@@ -49,7 +48,7 @@ ${rows.map(([k, v]) => `<tr><td style="padding:12px 0;border-bottom:1px solid #e
 </td></tr>
 <tr><td style="padding:16px 32px;background:#f6f9fc;color:#8a97a8;font-size:12px;">Sent automatically from Merchant Portal. Please key in this record manually.</td></tr>
 </table></td></tr></table></body></html>`;
-    const subject = `New Registration - ${input.merchantId} - ${input.dialCode} ${input.phone}`;
+    const subject = `New Registration - ${input.merchantId} - +60${input.phone}`;
     const raw = [
       `To: ${TO}`,
       `Reply-To: ${input.email}`,

@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Toaster } from '@project/components/ui/sonner';
 import TopNav from './components/TopNav';
 import LoginStepOne from './components/LoginStepOne';
-import MarketingSections from './components/MarketingSections';
+import SignInGuide from './components/SignInGuide';
 import LoginStepTwo from './components/LoginStepTwo';
-import LegalFooter from './components/LegalFooter';
 import type { Session } from './components/SectionView';
 import TemporaryError from './components/TemporaryError';
 import { cn } from '@project/components/lib/utils';
@@ -40,13 +39,12 @@ function Portal() {
     </div>
   );
 
-  // Error page: no marketing sections and no legal footer.
   if (session) {
     return (
       <div className="min-h-screen">
         {bg}
         <TopNav onLogout={logout} />
-        <main>
+        <main className="px-4 py-10 sm:py-16">
           <TemporaryError onLogout={logout} />
         </main>
         <Toaster />
@@ -55,10 +53,10 @@ function Portal() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="min-h-screen">
       {bg}
       <TopNav />
-      <main className="mx-auto flex w-full max-w-xl flex-1 flex-col px-4 py-10 sm:py-16">
+      <main className="mx-auto flex max-w-xl flex-col px-4 py-10 sm:py-16">
         <div className="mb-8 text-center text-white">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{step === 1 ? 'Merchant Sign In' : 'Client Verification'}</h1>
           <p className="mt-2 text-white/70">{step === 1 ? 'Verify your merchant account to get started' : 'Complete your client details to continue'}</p>
@@ -71,10 +69,9 @@ function Portal() {
             <LoginStepTwo merchantId={merchantId} role={role}
               onDone={(email) => setSession({ merchantId, email, role })} />
           )}
-          {step === 1 && <MarketingSections />}
+          {step === 1 && <SignInGuide />}
         </div>
       </main>
-      <LegalFooter />
       <Toaster />
     </div>
   );
