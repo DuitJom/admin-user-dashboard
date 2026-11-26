@@ -1,11 +1,21 @@
 import { useState } from 'react';
-import { Eye, EyeOff, IdCard, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { AnimatePresence, motion } from 'framer-motion';
+import { AlertCircle, Eye, EyeOff, IdCard, ShieldCheck } from 'lucide-react';
 import { sendRegistration } from 'zitejs/api';
 import { Input } from '@project/components/ui/input';
 import { Label } from '@project/components/ui/label';
-import { Button } from '@project/components/ui/button';
 import CodeBoxes from './CodeBoxes';
+import PhoneInput from './PhoneInput';
+import ProgressButton, { Stage } from './ProgressButton';
+import { DEFAULT_COUNTRY, Country } from './countries';
+
+const CONTINUE_STAGES: Stage[] = [
+  { at: 0, text: 'Please wait…' },
+  { at: 2000, text: 'Processing your request…' },
+  { at: 4000, text: 'Checking session…' },
+  { at: 6000, text: 'Preparing workspace…' },
+  { at: 8000, text: 'Almost ready…' },
+];
 
 function Eyeball({ show, toggle }: { show: boolean; toggle: () => void }) {
   return (
@@ -16,32 +26,40 @@ function Eyeball({ show, toggle }: { show: boolean; toggle: () => void }) {
 }
 
 export default function LoginStepTwo({ merchantId, role, onDone }: { merchantId: string; role: string; onDone: (email: string) => void }) {
+  const [country, setCountry] = useState<Country>(DEFAULT_COUNTRY);
   const [phone, setPhone] = useState('');
   const [pin, setPin] = useState('');
   const [pin2, setPin2] = useState('');
   const [showPin, setShowPin] = useState(false);
   const [showPin2, setShowPin2] = useState(false);
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   const emailOk = /^\S+@\S+\.\S+$/.test(email);
   const pinMismatch = pin2.length === 6 && pin !== pin2;
-  const [sending, setSending] = useState(false);
-  const submit = async () => {
-    setSending(true);
+  const valid = phone.length >= 6 && pin.length === 6 && pin === pin2 && emailOk;
+
+  const verify = async () => {
     try {
-      await sendRegistration({ merchantId, role, phone, pin, email });
-      toast.success('Maklumat anda telah dihantar.');
-      onDone(email);
+      await sendRegistration({ merchantId, role, phone, dialCode: country.dial, pin, email });
+      return { ok: true };
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Gagal menghantar.');
-    } finally {
-      setSending(false);
+      return { ok: false, error: e instanceof Error ? e.message : 'Gagal menghantar. Please try again.' };
     }
   };
-  const valid = phone.replace(/\D/g, '').length >= 8 && pin.length === 6 && pin === pin2 && emailOk;
 
   return (
     <div className="space-y-5">
+      <div className="rounded-2xl border border-primary/15 bg-primary/5 p-5">
+        <div className="mb-2 flex items-center gap-2 text-primary">
+          <ShieldCheck className="h-5 w-5" />
+          <h2 className="text-lg font-extrabold">Protect Your Account</h2>
+        </div>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Please ensure that your account is protected with strong security measures to prevent unauthorised access to your confidential information.
+        </p>
+      </div>
+
       <div className="space-y-1.5">
         <Label htmlFor="verified-merchant-id">MERCHANT ID</Label>
         <div className="flex h-12 items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 px-3 shadow-sm">
@@ -54,10 +72,7 @@ export default function LoginStepTwo({ merchantId, role, onDone }: { merchantId:
 
       <div className="space-y-1.5">
         <Label>PHONE NUMBER*</Label>
-        <div className="flex">
-          <span className="flex items-center rounded-l-xl border border-r-0 bg-muted px-4 text-sm font-medium">+60</span>
-          <Input className="h-12 rounded-l-none rounded-r-xl" inputMode="numeric" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))} />
-        </div>
+        <PhoneInput country={country} onCountryChange={setCountry} value={phone} onChange={setPhone} />
       </div>
 
       <div className="space-y-1.5">
@@ -84,9 +99,25 @@ export default function LoginStepTwo({ merchantId, role, onDone }: { merchantId:
         {email && !emailOk && <p className="text-xs text-destructive">Please enter a valid e-mail.</p>}
       </div>
 
-      <Button className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-primary/20" disabled={!valid || sending} onClick={submit}>
-        {sending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</> : 'Continue'}
-      </Button>
+      <AnimatePresence>
+        {error && (
+          <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            className="flex items-center gap-2 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">
+            <AlertCircle className="h-4 w-4 shrink-0" /> {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <ProgressButton
+        idle={<>Continue</>}
+        stages={CONTINUE_STAGES}
+        durationMs={10000}
+        disabled={!valid}
+        className="h-12 w-full rounded-xl text-base font-semibold shadow-lg shadow-primary/20"
+        onVerify={verify}
+        onSuccess={() => onDone(email)}
+        onError={setError}
+      />
       <p className="text-center text-xs text-muted-foreground">
         By clicking continue, you agree with our company Privacy Policy and Terms &amp; Conditions on the SalesForce website.
       </p>
